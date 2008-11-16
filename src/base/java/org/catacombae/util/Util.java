@@ -591,6 +591,42 @@ public class Util {
         return ((data >>> bitNumber) & 0x1) == 0x1;
     }
 
+    public static byte setBit(byte data, int bitNumber, boolean value) {
+        if(bitNumber < 0 || bitNumber > 7)
+            throw new IllegalArgumentException("bitNumber out of range");
+        return (byte) setBit(data & 0xFF, bitNumber, value);
+    }
+
+    public static short setBit(short data, int bitNumber, boolean value) {
+        if(bitNumber < 0 || bitNumber > 15)
+            throw new IllegalArgumentException("bitNumber out of range");
+        return (short) setBit(data & 0xFFFF, bitNumber, value);
+    }
+
+    public static char setBit(char data, int bitNumber, boolean value) {
+        if(bitNumber < 0 || bitNumber > 15)
+            throw new IllegalArgumentException("bitNumber out of range");
+        return (char) setBit(data & 0xFFFF, bitNumber, value);
+    }
+
+    public static int setBit(int data, int bitNumber, boolean value) {
+        if(bitNumber < 0 || bitNumber > 31)
+            throw new IllegalArgumentException("bitNumber out of range");
+        if(value)
+            return data | (0x1 << bitNumber);
+        else
+            return data & (data ^ (0x1 << bitNumber));
+    }
+
+    public static long setBit(long data, int bitNumber, boolean value) {
+        if(bitNumber < 0 || bitNumber > 63)
+            throw new IllegalArgumentException("bitNumber out of range");
+        if(value)
+            return data | (0x1 << bitNumber);
+        else
+            return data & (data ^ (0x1 << bitNumber));
+    }
+
     public static int arrayCompareLex(byte[] a, byte[] b) {
         return arrayCompareLex(a, 0, a.length, b, 0, b.length);
     }
