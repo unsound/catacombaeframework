@@ -18,9 +18,14 @@
 package org.catacombae.csjc;
 
 /**
- * Represents a static struct, i.e. a struct with a fixed size.
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * Abstract struct superinterface.
+ * @author Erik Larsson
  */
-public interface StaticStruct extends AbstractStruct {
-    public int size();
+public interface AbstractStruct {
+    /**
+     * Returns a serialized one-to-one representation of the struct's data.
+     *
+     * @return a serialized one-to-one representation of the struct's data.
+     */
+    public byte[] getBytes();
 }
