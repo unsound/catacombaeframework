@@ -1,6 +1,6 @@
 /*-
  * Copyright (C) 2008 Erik Larsson
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -19,25 +19,35 @@
 package org.catacombae.io;
 
 /**
- *
+ * Basic implementation of core features of Writable, to allow the subclasser to only implement the
+ * essential methods.
+ * 
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
-public abstract class BasicWritableRandomAccessStream extends BasicWritable implements WritableRandomAccessStream {
-    
+public abstract class BasicWritable implements Writable {
     /**
      * Empty constructor (there is no state maintained in this class).
      */
-    protected BasicWritableRandomAccessStream() { }
-    
-    /** {@inheritDoc} */
-    public abstract void close() throws RuntimeIOException;
+    protected BasicWritable() { }
 
     /** {@inheritDoc} */
-    public abstract void seek(long pos) throws RuntimeIOException;
+    public void write(byte[] b) throws RuntimeIOException {
+        defaultWrite(this, b);
+    }
 
     /** {@inheritDoc} */
-    public abstract long length() throws RuntimeIOException;
+    public abstract void write(byte[] b, int off, int len) throws RuntimeIOException;
 
     /** {@inheritDoc} */
-    public abstract long getFilePointer() throws RuntimeIOException;
+    public void write(int b) throws RuntimeIOException {
+        defaultWrite(this, b);
+    }
+
+    static void defaultWrite(Writable w, byte[] b) throws RuntimeIOException {
+        w.write(b, 0, b.length);
+    }
+
+    static void defaultWrite(Writable w, int b) throws RuntimeIOException {
+        w.write(new byte[] { (byte)(b & 0xFF) }, 0, 1);
+    }
 }

@@ -1,6 +1,6 @@
 /*-
  * Copyright (C) 2008 Erik Larsson
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -18,26 +18,38 @@
 
 package org.catacombae.io;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
+ * Transforms a java.io.InputStream into an org.catacombae.io.Readable.
  *
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
-public abstract class BasicWritableRandomAccessStream extends BasicWritable implements WritableRandomAccessStream {
-    
-    /**
-     * Empty constructor (there is no state maintained in this class).
-     */
-    protected BasicWritableRandomAccessStream() { }
-    
-    /** {@inheritDoc} */
-    public abstract void close() throws RuntimeIOException;
+public class InputStreamReadable extends BasicReadable implements Stream {
+
+    private final InputStream is;
+
+    public InputStreamReadable(InputStream is) {
+        this.is = is;
+    }
 
     /** {@inheritDoc} */
-    public abstract void seek(long pos) throws RuntimeIOException;
+    @Override
+    public int read(byte[] data, int pos, int len) throws RuntimeIOException {
+        try {
+            return is.read(data, pos, len);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
+    }
 
     /** {@inheritDoc} */
-    public abstract long length() throws RuntimeIOException;
-
-    /** {@inheritDoc} */
-    public abstract long getFilePointer() throws RuntimeIOException;
+    public void close() throws RuntimeIOException {
+        try {
+            is.close();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
+    }
 }

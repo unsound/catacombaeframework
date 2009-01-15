@@ -20,87 +20,64 @@ package org.catacombae.io;
 
 /**
  * A full read/write version of ReadableConcatenatedStream.
- * 
+ * Note: Untested!
+ *
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
-public class ConcatenatedStream extends BasicRandomAccessStream {
-    private ReadableConcatenatedStream backingFile;
+public class ConcatenatedStream extends BasicConcatenatedStream<RandomAccessStream> implements RandomAccessStream {
     
     public ConcatenatedStream(RandomAccessStream firstPart, long startOffset, long length) {
-	backingFile = new ReadableConcatenatedStream(firstPart, startOffset, length);
-    }
-    
-    public void addPart(RandomAccessStream newFile, long off, long len) {
-        ReadableConcatenatedStream.Part newPart = new ReadableConcatenatedStream.Part(newFile, off, len);
-        backingFile.parts.add(newPart);
-    }
-    
-    public void seek(long pos) {
-        backingFile.seek(pos);
-    }
-    
-    @Override
-    public int read() {
-        return backingFile.read();
+        super(firstPart, startOffset, length);
     }
 
-    @Override
-    public int read(byte[] data) {
-        return backingFile.read(data);
+    public void write(byte[] data) throws RuntimeIOException {
+        BasicWritable.defaultWrite(this, data);
     }
 
-    @Override
-    public int read(byte[] data, int pos, int len) {
-        return backingFile.read(data, pos, len);
-    }
-
-    @Override
-    public void readFully(byte[] data) {
-        backingFile.readFully(data);
-    }
-
-    @Override
-    public void readFully(byte[] data, int offset, int length) {
-        backingFile.readFully(data, offset, length);
-    }
-    
-    public void write(byte[] data, int off, int len) {
+    public void write(byte[] data, int off, int len) throws RuntimeIOException {
         int bytesWritten = 0;
-        RandomAccessStream currentWritableFile = (RandomAccessStream)backingFile.currentPart.file;
-        
-	while(true) {
-	    long bytesLeftInFile = backingFile.currentPart.length - 
-                    (currentWritableFile.getFilePointer() - backingFile.currentPart.startOffset);
-	    int bytesLeftToWrite = len - bytesWritten;
-	    int bytesToWrite = 
-                    (int)((bytesLeftInFile < bytesLeftToWrite) ? bytesLeftInFile : bytesLeftToWrite);
-            currentWritableFile.write(data, off+bytesWritten, bytesToWrite);
-            bytesWritten += bytesToWrite;
-            if(bytesWritten < len) {
-                // move pointer forward, so that currentPart advances.
-                backingFile.currentPartIndex++;
-                backingFile.currentPart = backingFile.parts.get(backingFile.currentPartIndex);
-                currentWritableFile = (RandomAccessStream)backingFile.currentPart.file;
-                currentWritableFile.seek(backingFile.currentPart.startOffset);
+
+        // First: Look up the position represented by our virtual file pointer.
+        long bytesToSkip = virtualFP;
+        int requestedPartIndex = -1;
+        for(Part p : parts) {
+            ++requestedPartIndex;
+
+            if(bytesToSkip > p.length) {
+                bytesToSkip -= p.length;
             }
-            else if(bytesWritten == len)
-                return;
-            else
-                throw new RuntimeException("Wrote more than I was supposed to! This can't happen.");
+            else {
+                break;
+            }
         }
+        if(requestedPartIndex == -1)
+            throw new RuntimeIOException("Tried to write beyond end of file.");
+
+        // Loop as long as we still have data to fill, and we still have parts to process.
+        while(bytesWritten < len && requestedPartIndex < parts.size()) {
+            Part requestedPart = parts.get(requestedPartIndex++);
+            long bytesToSkipInPart = bytesToSkip;
+            bytesToSkip = 0;
+
+            int bytesLeftToWrite = len - bytesWritten;
+            int bytesToWrite = (int) ((bytesLeftToWrite < requestedPart.length) ? bytesLeftToWrite : requestedPart.length);
+
+            requestedPart.file.seek(bytesToSkipInPart);
+            requestedPart.file.write(data, off + bytesWritten, bytesToWrite);
+            
+            bytesWritten += bytesToWrite;
+        }
+
+        if(bytesWritten < len)
+            throw new RuntimeIOException("Could not write all data requested (wrote: " +
+                    bytesWritten + " requested:" + len + ".");
+        
+        if(bytesWritten > len) // Debug check.
+            throw new RuntimeException("Wrote more than I was supposed to (" + bytesWritten +
+                    " / " + len + " bytes)! This can't happen.");
     }
 
-    public long length() {
-        return backingFile.length();
+    public void write(int data) throws RuntimeIOException {
+        BasicWritable.defaultWrite(this, data);
     }
-
-    public long getFilePointer() {
-        return backingFile.getFilePointer();
-    }
-
-    public void close() {
-        backingFile.close();
-    }
-
 }
-

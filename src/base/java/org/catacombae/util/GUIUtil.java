@@ -93,12 +93,16 @@ public class GUIUtil {
         
         final String finalMessage = sb.toString();
         try {
-            SwingUtilities.invokeAndWait(new Runnable() {
+            Runnable r = new Runnable() {
                 @Override
                 public void run() {
                     JOptionPane.showMessageDialog(c, finalMessage, title, messageType);
                 }
-            });
+            };
+            if(SwingUtilities.isEventDispatchThread())
+                r.run();
+            else
+                SwingUtilities.invokeAndWait(r);
         } catch(Exception e) {
             throw new RuntimeException("Exception during invokeAndWait!", e);
         }

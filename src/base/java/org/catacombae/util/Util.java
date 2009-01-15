@@ -26,8 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Util {
-    //public static int sectorSize = 0x800;
-
     public static class Pair<A,B> {
         private A a;
         private B b;

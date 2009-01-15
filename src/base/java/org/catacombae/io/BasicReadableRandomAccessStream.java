@@ -24,7 +24,7 @@ package org.catacombae.io;
  * 
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
-public abstract class BasicReadableRandomAccessStream implements ReadableRandomAccessStream {
+public abstract class BasicReadableRandomAccessStream extends BasicReadable implements ReadableRandomAccessStream {
     /**
      * Empty constructor (there is no state maintained in this class).
      */
@@ -42,38 +42,4 @@ public abstract class BasicReadableRandomAccessStream implements ReadableRandomA
     /** {@inheritDoc} */
     public abstract long getFilePointer() throws RuntimeIOException;
 
-    /** {@inheritDoc} */
-    public int read() throws RuntimeIOException {
-        byte[] res = new byte[1];
-        if(read(res, 0, 1) == 1)
-            return res[0] & 0xFF;
-        else
-            return -1;
-    }
-
-    /** {@inheritDoc} */
-    public int read(byte[] data) throws RuntimeIOException {
-        return read(data, 0, data.length);
-    }
-
-    /** {@inheritDoc} */
-    public abstract int read(byte[] data, int pos, int len) throws RuntimeIOException;
-
-    /** {@inheritDoc} */
-    public void readFully(byte[] data) throws RuntimeIOException {
-	readFully(data, 0, data.length);
-    }
-
-    /** {@inheritDoc} */
-    public void readFully(byte[] data, int offset, int length) throws RuntimeIOException {
-        if(length < 0)
-            throw new IllegalArgumentException("length is negative: " + length);
-	int bytesRead = 0;
-	while(bytesRead < length) {
-	    int curBytesRead = read(data, offset+bytesRead, length-bytesRead);
-	    if(curBytesRead > 0) bytesRead += curBytesRead;
-	    else 
-		throw new RuntimeIOException("Couldn't read the entire length.");
-	}
-    }
 }

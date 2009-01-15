@@ -29,7 +29,7 @@ public interface Writable {
      * 
      * @param data array containing the data to write to the stream.
      */
-    public void write(byte[] data);
+    public void write(byte[] data) throws RuntimeIOException;
     
     /**
      * Writes a subset of <code>data</code> to the stream, starting at array offset <code>pos</code>
@@ -39,7 +39,7 @@ public interface Writable {
      * @param off the offset in <code>data</code> to start reading.
      * @param len the number of bytes to write to the stream.
      */
-    public void write(byte[] data, int off, int len);
+    public void write(byte[] data, int off, int len) throws RuntimeIOException;
     
     /**
      * Writes a single byte to the stream. <code>data</code> will be unsigned first, so valid ranges
@@ -47,6 +47,6 @@ public interface Writable {
      * 
      * @param data integer containing the single byte to write to the stream.
      */
-    public void write(int data);
+    public void write(int data) throws RuntimeIOException;
 
 }

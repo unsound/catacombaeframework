@@ -1,6 +1,6 @@
 /*-
  * Copyright (C) 2008 Erik Larsson
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -18,26 +18,38 @@
 
 package org.catacombae.io;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 /**
+ * Transforms a java.io.OutputStream into an org.catacombae.io.Writable.
  *
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
-public abstract class BasicWritableRandomAccessStream extends BasicWritable implements WritableRandomAccessStream {
+public class OutputStreamWritable extends BasicWritable implements Stream {
+    private final OutputStream os;
+
+    public OutputStreamWritable(OutputStream os) {
+        this.os = os;
+    }
     
-    /**
-     * Empty constructor (there is no state maintained in this class).
-     */
-    protected BasicWritableRandomAccessStream() { }
-    
     /** {@inheritDoc} */
-    public abstract void close() throws RuntimeIOException;
+    @Override
+    public void write(byte[] b, int off, int len) throws RuntimeIOException {
+        try {
+            os.write(b, off, len);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
+    }
 
     /** {@inheritDoc} */
-    public abstract void seek(long pos) throws RuntimeIOException;
+    public void close() throws RuntimeIOException {
+        try {
+            os.close();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
+    }
 
-    /** {@inheritDoc} */
-    public abstract long length() throws RuntimeIOException;
-
-    /** {@inheritDoc} */
-    public abstract long getFilePointer() throws RuntimeIOException;
 }
