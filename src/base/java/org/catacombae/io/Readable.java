@@ -37,7 +37,7 @@ public interface Readable {
     /**
      * Reads as much data as possible from the stream into the array <code>data</code>, until the
      * end of the array has been reached. Returns the number of bytes that were read into <code>
-     * array</code>. If no bytes could be read due to end of stream, -1 is returned.
+     * data</code>. If no bytes could be read due to end of stream, -1 is returned.
      * 
      * @param data the array where the output data should be stored.
      * @return the number of bytes that was read, or -1 if no bytes could be read due to end of
@@ -49,7 +49,7 @@ public interface Readable {
     /**
      * Reads as much data as possible from the stream into the array <code>data</code> at position
      * <code>pos</code>, until <code>len</code> bytes have been read. Returns the number of bytes
-     * that were read into <code> array</code>. If no bytes could be read due to end of stream,
+     * that were read into <code>data</code>. If no bytes could be read due to end of stream,
      * -1 is returned.
      * 
      * @param data the array where the output data should be stored.
