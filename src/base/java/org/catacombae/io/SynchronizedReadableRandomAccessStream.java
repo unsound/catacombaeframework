@@ -48,8 +48,7 @@ public class SynchronizedReadableRandomAccessStream extends BasicSynchronizedRea
 	    seek(pos);
 	int res = read(b, off, len);
         
-        if(oldFP != pos)
-            seek(oldFP); // Reset file pointer to previous position
+        seek(oldFP); // Reset file pointer to previous position
         return res;
     }
     
