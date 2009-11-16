@@ -60,17 +60,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
     public void seek(long pos) {
         // if(debug) System.err.println("ReadableConcatenatedStream.seek(" + pos + ");");
-        long curPos = 0;
-        for(Part p : parts) {
-            if(curPos + p.length > pos) {
-                //currentPart = p;
-                //currentPart.file.seek(currentPart.startOffset + (pos - curPos));
-                break;
-            }
-            else
-                curPos += p.length;
-        }
-        virtualFP = curPos;
+        virtualFP = pos;
     }
 
     public int read(byte[] data, int off, int len) {
