@@ -19,65 +19,85 @@
 package org.catacombae.io;
 
 /**
- * This class adds concurrency safety to a random access stream. It includes a seek+read
- * atomic operation. All operations on this object is synchronized on its own monitor.
+ * This class adds concurrency safety to a random access stream. It includes a
+ * seek+read atomic operation. All operations on this object is synchronized on
+ * its own monitor.
  */
-public class SynchronizedReadableRandomAccessStream extends BasicSynchronizedReadableRandomAccessStream implements SynchronizedReadableRandomAccess {
+public class SynchronizedReadableRandomAccessStream
+        extends BasicSynchronizedReadableRandomAccessStream
+        implements SynchronizedReadableRandomAccess {
+
     /** The underlying stream. */
     private ReadableRandomAccessStream ras;
     private long refCount;
     private boolean closed = false;
-    
-    public SynchronizedReadableRandomAccessStream(ReadableRandomAccessStream sourceStream) {
-	this.ras = sourceStream;
+
+    public SynchronizedReadableRandomAccessStream(
+            ReadableRandomAccessStream sourceStream) {
+        this.ras = sourceStream;
     }
-    
+
     /**
-     * Returns the backing stream for this SynchronizedReadableRandomAccessStream.
-     * @return the backing stream for this SynchronizedReadableRandomAccessStream.
+     * Returns the backing stream for this
+     * SynchronizedReadableRandomAccessStream.
+     * 
+     * @return the backing stream for this
+     * SynchronizedReadableRandomAccessStream.
      */
     public ReadableRandomAccessStream getSourceStream() {
         return ras;
     }
-    
+
     /** {@inheritDoc} */
     @Override
-    public synchronized int readFrom(final long pos, byte[] b, int off, int len) throws RuntimeIOException {
-        //System.err.println("SynchronizedReadableRandomAccessStream.readFrom(" + pos + ", byte[" + b.length + "], " + off + ", " + len + ");");
+    public synchronized int readFrom(final long pos, byte[] b, int off, int len)
+            throws RuntimeIOException {
+        //System.err.println("SynchronizedReadableRandomAccessStream.readFrom" +
+        //        "(" + pos + ", byte[" + b.length + "], " + off + ", " + len +
+        //        ");");
         final long oldFP = getFilePointer();
-	if(oldFP != pos)
-	    seek(pos);
-	int res = read(b, off, len);
-        
+        //System.err.println("  oldFP=" + oldFP);
+        if(oldFP != pos) {
+            //System.err.println("  seeking to " + pos + "...");
+            seek(pos);
+        }
+
+        //System.err.println("  Reading " + len + " bytes...");
+        int res = read(b, off, len);
+        //System.err.println("    read " + res + " bytes.");
+
+        //System.err.println("  seeking to " + oldFP + "...");
         seek(oldFP); // Reset file pointer to previous position
+        //System.err.println("  returning " + res + ".");
         return res;
     }
-    
+
     /** {@inheritDoc} */
     @Override
-    public synchronized long skipFrom(final long pos, final long length) throws RuntimeIOException {
-	final long streamLength = length();
-	final long newPos = pos+length;
-        
+    public synchronized long skipFrom(final long pos, final long length)
+            throws RuntimeIOException {
+        final long streamLength = length();
+        final long newPos = pos + length;
+
         final long res;
-	if(newPos > streamLength) {
-	    //seek(streamLength);
-	    res = streamLength-pos;
-	}
-	else {
-	    //seek(newPos);
-	    res = length;
-	}
-        
+        if(newPos > streamLength) {
+            //seek(streamLength);
+            res = streamLength - pos;
+        }
+        else {
+            //seek(newPos);
+            res = length;
+        }
+
         return res;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized long remainingLength() throws RuntimeIOException {
-	return length()-getFilePointer();
+        return length() - getFilePointer();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized void close() throws RuntimeIOException {
@@ -86,47 +106,51 @@ public class SynchronizedReadableRandomAccessStream extends BasicSynchronizedRea
             closed = true;
         }
         else
-            throw new RuntimeIOException(refCount + " instances are still using this stream!");
+            throw new RuntimeIOException(refCount + " instances are still " +
+                    "using this stream!");
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized long getFilePointer() throws RuntimeIOException {
-	return ras.getFilePointer();
+        return ras.getFilePointer();
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized long length() throws RuntimeIOException {
-	return ras.length();
+        return ras.length();
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized int read() throws RuntimeIOException {
-	return ras.read();
+        return ras.read();
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized int read(byte[] b) throws RuntimeIOException {
-	return ras.read(b);
+        return ras.read(b);
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized int read(byte[] b, int off, int len) throws RuntimeIOException {
-        //System.err.println("SynchronizedReadableRandomAccessStream.read(byte[" + b.length + "], " + off + ", " + len + ");");
+    public synchronized int read(byte[] b, int off, int len)
+            throws RuntimeIOException {
+        //System.err.println("SynchronizedReadableRandomAccessStream.read(" +
+        //        "byte[" + b.length + "], " + off + ", " + len + ");");
+        //System.err.println("  ras=" + ras);
 
-	return ras.read(b, off, len);
+        return ras.read(b, off, len);
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized void seek(long pos) throws RuntimeIOException {
-	ras.seek(pos);
+        ras.seek(pos);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized void addReference(Object referrer) {
@@ -135,7 +159,7 @@ public class SynchronizedReadableRandomAccessStream extends BasicSynchronizedRea
         else
             throw new RuntimeIOException("Stream is closed!");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized void removeReference(Object referrer) {
