@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-
 /**
  * This class wraps a java.io.RandomAccessFile (opened in read-only mode) and
  * maps its operations to the operations of ReadableRandomAccessStream.
@@ -30,83 +29,116 @@ import java.io.RandomAccessFile;
  * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
  */
 public class ReadableFileStream implements ReadableRandomAccessStream {
+
     protected final RandomAccessFile raf;
-    
+
     public ReadableFileStream(String filename) {
-	this(new File(filename));
+        this(new File(filename));
     }
-    
+
     public ReadableFileStream(File file) {
         this(file, "r");
     }
-    
+
     public ReadableFileStream(RandomAccessFile iRaf) {
         if(iRaf == null)
             throw new IllegalArgumentException("iRaf may NOT be null");
         this.raf = iRaf;
     }
-    
+
     protected ReadableFileStream(String filename, String mode) {
         this(new File(filename), mode);
     }
 
     protected ReadableFileStream(File file, String mode) {
-	try {
-	    this.raf = new RandomAccessFile(file, mode);
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        try {
+            this.raf = new RandomAccessFile(file, mode);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public void seek(long pos) {
-	try {
-	    raf.seek(pos);
-	} catch(IOException ioe) { throw new RuntimeIOException("pos=" + pos + "," + ioe.toString(), ioe); }
+        //System.err.println("ReadableFileStream.seek(" + pos + ");");
+        try {
+            raf.seek(pos);
+        } catch(IOException ioe) {
+            throw new RuntimeIOException("pos=" + pos + "," + ioe.toString(),
+                    ioe);
+        }
     }
-    
+
     public int read() {
-	try {
-	    return raf.read();
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.read();");
+        try {
+            return raf.read();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public int read(byte[] data) {
-	try {
-	    return raf.read(data);
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.read(" + data + ");");
+        try {
+            return raf.read(data);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public int read(byte[] data, int pos, int len) {
-	try {
-	    return raf.read(data, pos, len);
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.read(" + data + ", " + pos +
+        //        ", " + len + ");");
+        try {
+            return raf.read(data, pos, len);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public void readFully(byte[] data) {
-	try {
-	    raf.readFully(data);
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.readFully(" + data + ");");
+        try {
+            raf.readFully(data);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public void readFully(byte[] data, int offset, int length) {
-	try {
-	    raf.readFully(data, offset, length);
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.readFully(" + data + ", " +
+        //        offset + ", " + length + ");");
+        try {
+            raf.readFully(data, offset, length);
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public long length() {
-	try {
-	    return raf.length();
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.length();");
+        try {
+            return raf.length();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public long getFilePointer() {
-	try {
-	    return raf.getFilePointer();
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.getFilePointer();");
+        try {
+            return raf.getFilePointer();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
-    
+
     public void close() {
-	try {
-	    raf.close();
-	} catch(IOException ex) { throw new RuntimeIOException(ex); }
+        //System.err.println("ReadableFileStream.close();");
+        try {
+            raf.close();
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        }
     }
 }
