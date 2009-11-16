@@ -18,6 +18,7 @@
 
 package org.catacombae.io;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,32 +41,53 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             this.length = length;
         }
     }
-    // private static final boolean debug = true;
+
     protected final List<Part> parts = new ArrayList<Part>();
-    //Part currentPart;
     protected long virtualFP;
 
     protected BasicConcatenatedStream(A firstPart, long startOffset, long length) {
-        // if(debug) System.err.println("ReadableConcatenatedStream(" + firstPart + ", " + startOffset + ", " + length + ");");
+        //enter(null, firstPart, startOffset, length);
         Part currentPart = new Part(firstPart, startOffset, length);
         parts.add(currentPart);
         virtualFP = 0;
     }
 
+    private void enter(String methodName, Object... args) {
+        PrintStream out = System.err;
+        out.print(this.getClass().getSimpleName() + "{" +
+                this.hashCode() + "}");
+        if(methodName != null)
+            out.print("." + methodName);
+        out.print("(");
+        for(int i = 0; i < args.length; ++i) {
+            if(i > 0)
+                out.print(", ");
+            out.print(args[i].toString());
+        }
+        out.println(");");
+    }
+
+    private void log(String methodName, String message) {
+        PrintStream out = System.err;
+        out.println(this.getClass().getSimpleName() + "{" +
+                this.hashCode() + "}." + methodName + ": " + message);
+    }
+
     public void addPart(A newFile, long off, long len) {
-        // if(debug) System.err.println("ReadableConcatenatedStream.addPart(" + newFile + ", " + off + ", " + len + ");");
+        //enter("addPart", newFile, off, len);
         Part newPart = new Part(newFile, off, len);
         parts.add(newPart);
     }
 
     public void seek(long pos) {
-        // if(debug) System.err.println("ReadableConcatenatedStream.seek(" + pos + ");");
+        //enter("seek", pos);
         virtualFP = pos;
     }
 
     public int read(byte[] data, int off, int len) {
-        //boolean debug = true;
-        // if(debug) System.err.println("ReadableConcatenatedStream{" + this.hashCode() + "}.read(" + data + ", " + pos + ", " + len + ");");
+        //String METHOD_NAME = "read";
+        //enter(METHOD_NAME, data, off, len);
+        //log(METHOD_NAME, "virtualFP=" + virtualFP);
         int bytesRead = 0;
 
         long bytesToSkip = virtualFP;
@@ -84,40 +106,32 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             return -1;
 
         while(requestedPartIndex < parts.size()) {
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): currentPart.length = " + currentPart.length);
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): currentPart.startOffset = " + currentPart.startOffset);
             Part requestedPart = parts.get(requestedPartIndex++);
+            //log(METHOD_NAME, "requestedPart.length = " + requestedPart.length);
+            //log(METHOD_NAME, "requestedPart.startOffset = " + requestedPart.startOffset);
+
             long bytesToSkipInPart = bytesToSkip;
+            //log(METHOD_NAME, "bytesToSkipInPart=" + bytesToSkipInPart);
+
             bytesToSkip = 0;
 
-            /*
-            long currentFP = currentPart.file.getFilePointer();
-            if(currentFP < currentPart.startOffset) {
-                currentFP = currentPart.startOffset;
-                currentPart.file.seek(currentFP);
-            }
-            else if(currentFP > (currentPart.startOffset+currentPart.length)) {
-                currentFP = currentPart.startOffset+currentPart.length;
-                currentPart.file.seek(currentFP);
-            }
-             * */
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): currentPart.file.getFilePointer() = " + currentFP);
-
-            //long bytesLeftInPart = requestedPart.length;
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): bytesLeftInFile = " + bytesLeftInFile);
             int bytesLeftToRead = len - bytesRead;
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): bytesLeftToRead = " + bytesLeftToRead);
-            int bytesToRead = (int) ((bytesLeftToRead < requestedPart.length) ? bytesLeftToRead : requestedPart.length);
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): bytesToRead = " + bytesToRead);
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): invoking currentPart.file.read(byte[" + data.length + "], " + (pos+bytesRead) + ", " + bytesToRead + ")");
+            //log(METHOD_NAME, "bytesLeftToRead = " + bytesLeftToRead);
+            int bytesToRead = (int) ((bytesLeftToRead < requestedPart.length)
+                    ? bytesLeftToRead : requestedPart.length);
+            //log(METHOD_NAME, "bytesToRead = " + bytesToRead);
+            //log(METHOD_NAME, "seeking to " + bytesToSkipInPart);
             requestedPart.file.seek(bytesToSkipInPart);
+            //log(METHOD_NAME, "invoking requestedPart.file.read(byte[" +
+            //        data.length + "], " + (off+bytesRead) + ", " + bytesToRead
+            //        + ")");
             int res = requestedPart.file.read(data, off + bytesRead, bytesToRead);
-            //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): res = " + res);
+            //log(METHOD_NAME, "res = " + res);
             if(res > 0) {
                 virtualFP += res;
                 bytesRead += res;
                 if(bytesRead == len) {
-                    //if(debug) System.err.println("  ReadableConcatenatedStream.read(3): returning " + bytesRead);
+                    //log(METHOD_NAME, "returning " + bytesRead);
                     return bytesRead;
                 }
                 else if(bytesRead > len)
@@ -135,39 +149,24 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
     }
 
     public long length() {
-        // if(debug) System.err.println("ReadableConcatenatedStream.length();");
+        //String METHOD_NAME = "length";
+        //enter(METHOD_NAME);
         long result = 0;
         for(Part p : parts)
             result += p.length;
-        // if(debug) System.err.println("  ReadableConcatenatedStream.length(): returning " + result);
+        //log(METHOD_NAME, "returning " + result);
         return result;
     }
 
     public long getFilePointer() {
-        /*
-        long fp = 0;
-        for(int i = 0; i < currentPartIndex; ++i) {
-            // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): fp = " + fp);
-            // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): processing part " + i);
-            fp += parts.get(i).length;
-        }
-
-        Part currentPartLocal = parts.get(currentPartIndex);
-        long currentPartFP = currentPartLocal.file.getFilePointer();
-        // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): fp = " + fp);
-        // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): currentPartFP = " + currentPartFP);
-        // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): currentPartLocal.startOffset = " + currentPartLocal.startOffset);
-    	fp += currentPartFP - currentPartLocal.startOffset;
-
-        // if(debug) System.err.println("  ReadableConcatenatedStream.getFilePointer(): returning " + fp);
-        return fp;
-        */
-        return virtualFP;
+        //String METHOD_NAME = "getFilePointer";
+        //enter(METHOD_NAME);
+       return virtualFP;
     }
 
-    /** Closes all the files constituting this ReadableConcatenatedStream. */
+    /** Closes all the files constituting this BasicConcatenatedStream. */
     public void close() {
-        // if(debug) System.err.println("ReadableConcatenatedStream.close();");
+        //enter("close");
         for(Part p : parts)
             p.file.close();
     }
