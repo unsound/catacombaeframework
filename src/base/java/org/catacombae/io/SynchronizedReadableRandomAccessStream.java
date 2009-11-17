@@ -49,7 +49,7 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized int readFrom(final long pos, byte[] b, int off, int len)
             throws RuntimeIOException {
         //System.err.println("SynchronizedReadableRandomAccessStream.readFrom" +
@@ -73,7 +73,7 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized long skipFrom(final long pos, final long length)
             throws RuntimeIOException {
         final long streamLength = length();
@@ -93,13 +93,13 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized long remainingLength() throws RuntimeIOException {
         return length() - getFilePointer();
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized void close() throws RuntimeIOException {
         if(refCount == 0) {
             ras.close();
@@ -111,13 +111,13 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized long getFilePointer() throws RuntimeIOException {
         return ras.getFilePointer();
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized long length() throws RuntimeIOException {
         return ras.length();
     }
@@ -135,7 +135,7 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized int read(byte[] b, int off, int len)
             throws RuntimeIOException {
         //System.err.println("SynchronizedReadableRandomAccessStream.read(" +
@@ -146,13 +146,13 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized void seek(long pos) throws RuntimeIOException {
         ras.seek(pos);
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized void addReference(Object referrer) {
         if(!closed)
             ++refCount;
@@ -161,7 +161,7 @@ public class SynchronizedReadableRandomAccessStream
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public synchronized void removeReference(Object referrer) {
         --refCount;
     }
