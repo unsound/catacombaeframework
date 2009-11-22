@@ -30,6 +30,9 @@ import java.io.RandomAccessFile;
  */
 public class ReadableFileStream implements ReadableRandomAccessStream {
 
+    private static final IOLog log =
+            IOLog.getInstance(ReadableFileStream.class);
+
     protected final RandomAccessFile raf;
 
     public ReadableFileStream(String filename) {
@@ -40,10 +43,18 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
         this(file, "r");
     }
 
-    public ReadableFileStream(RandomAccessFile iRaf) {
-        if(iRaf == null)
-            throw new IllegalArgumentException("iRaf may NOT be null");
-        this.raf = iRaf;
+    public ReadableFileStream(RandomAccessFile raf) {
+        if(log.trace)
+            log.traceEnter(null, raf);
+
+        try {
+            if(raf == null)
+                throw new IllegalArgumentException("iRaf may NOT be null");
+            this.raf = raf;
+        } finally {
+            if(log.trace)
+                log.traceLeave(null, raf);
+        }
     }
 
     protected ReadableFileStream(String filename, String mode) {
@@ -51,94 +62,156 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
     }
 
     protected ReadableFileStream(File file, String mode) {
+        if(log.trace)
+            log.traceEnter(null, file, mode);
+
         try {
             this.raf = new RandomAccessFile(file, mode);
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave(null, file, mode);
         }
     }
 
     public void seek(long pos) {
-        //System.err.println("ReadableFileStream.seek(" + pos + ");");
+        if(log.trace)
+            log.traceEnter("seek", pos);
+
         try {
             raf.seek(pos);
         } catch(IOException ioe) {
             throw new RuntimeIOException("pos=" + pos + "," + ioe.toString(),
                     ioe);
+        } finally {
+            if(log.trace)
+                log.traceLeave("seek", pos);
         }
     }
 
     public int read() {
-        //System.err.println("ReadableFileStream.read();");
+        if(log.trace)
+            log.traceEnter("read");
+
         try {
-            return raf.read();
+            int res = raf.read();
+            if(log.trace)
+                log.traceReturn(res);
+            return res;
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("read");
         }
     }
 
     public int read(byte[] data) {
-        //System.err.println("ReadableFileStream.read(" + data + ");");
+        if(log.trace)
+            log.traceEnter("read", data);
+
         try {
-            return raf.read(data);
+            int res = raf.read(data);
+            if(log.trace)
+                log.traceReturn(res);
+            return res;
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("read", data);
         }
     }
 
     public int read(byte[] data, int pos, int len) {
-        //System.err.println("ReadableFileStream.read(" + data + ", " + pos +
-        //        ", " + len + ");");
+        if(log.trace)
+            log.traceEnter("read", data, pos, len);
+
         try {
-            return raf.read(data, pos, len);
+            int res = raf.read(data, pos, len);
+            if(log.trace)
+                log.traceReturn(res);
+            return res;
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("read", data, pos, len);
         }
     }
 
     public void readFully(byte[] data) {
-        //System.err.println("ReadableFileStream.readFully(" + data + ");");
+        if(log.trace)
+            log.traceEnter("readFully", data);
+
         try {
             raf.readFully(data);
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("readFully", data);
         }
     }
 
     public void readFully(byte[] data, int offset, int length) {
-        //System.err.println("ReadableFileStream.readFully(" + data + ", " +
-        //        offset + ", " + length + ");");
+        if(log.trace)
+            log.traceEnter("readFully", data, offset, length);
+
         try {
             raf.readFully(data, offset, length);
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("readFully", data, offset,
+                        length);
         }
     }
 
     public long length() {
-        //System.err.println("ReadableFileStream.length();");
+        if(log.trace)
+            log.traceEnter("length");
+
         try {
             return raf.length();
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("length");
         }
     }
 
     public long getFilePointer() {
-        //System.err.println("ReadableFileStream.getFilePointer();");
+        if(log.trace)
+            log.traceEnter("getFilePointer");
+
         try {
-            return raf.getFilePointer();
+            long res = raf.getFilePointer();
+            if(log.trace)
+                log.traceReturn(res);
+            return res;
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("getFilePointer");
         }
     }
 
     public void close() {
-        //System.err.println("ReadableFileStream.close();");
+        if(log.trace)
+            log.traceEnter("close");
+
         try {
             raf.close();
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace)
+                log.traceLeave("close");
         }
     }
 }
