@@ -145,7 +145,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
                         ? bytesLeftToRead : requestedPart.length);
                 //log(METHOD_NAME, "bytesToRead = " + bytesToRead);
                 //log(METHOD_NAME, "seeking to " + bytesToSkipInPart);
-                requestedPart.file.seek(bytesToSkipInPart);
+                requestedPart.file.seek(requestedPart.startOffset + bytesToSkipInPart);
                 //log(METHOD_NAME, "invoking requestedPart.file.read(byte[" +
                 //        data.length + "], " + (off+bytesRead) + ", " + bytesToRead
                 //        + ")");
