@@ -25,10 +25,10 @@ package org.catacombae.io;
  */
 class IOLog {
     /** The default setting for the 'trace' log level. */
-    public static boolean defaultTrace = true;
+    public static boolean defaultTrace = false;
 
     /** The default setting for the 'debug' log level. */
-    public static boolean defaultDebug = true;
+    public static boolean defaultDebug = false;
 
     /** The current setting of the 'trace' log level for this instance. */
     public boolean trace = defaultTrace;
