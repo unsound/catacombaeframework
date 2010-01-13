@@ -22,6 +22,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -818,7 +819,46 @@ public class Util {
     public static long unsign(int i) {
         return i & 0xFFFFFFFFL;
     }
+
+    public static BigInteger unsign(long l) {
+        return new BigInteger(1, toByteArrayBE(l));
+    }
     
+    public static short[] unsign(byte[] ab) {
+        short[] res = new short[ab.length];
+        for(int i = 0; i < ab.length; ++i)
+            res[i] = unsign(ab[i]);
+        return res;
+    }
+
+    public static int[] unsign(short[] as) {
+        int[] res = new int[as.length];
+        for(int i = 0; i < as.length; ++i)
+            res[i] = unsign(as[i]);
+        return res;
+    }
+
+    public static int[] unsign(char[] ac) {
+        int[] res = new int[ac.length];
+        for(int i = 0; i < ac.length; ++i)
+            res[i] = unsign(ac[i]);
+        return res;
+    }
+
+    public static long[] unsign(int[] ai) {
+        long[] res = new long[ai.length];
+        for(int i = 0; i < ai.length; ++i)
+            res[i] = unsign(ai[i]);
+        return res;
+    }
+
+    public static BigInteger[] unsign(long[] al) {
+        BigInteger[] res = new BigInteger[al.length];
+        for(int i = 0; i < al.length; ++i)
+            res[i] = unsign(al[i]);
+        return res;
+    }
+
     // Added 2007-06-24 for DMGExtractor
     public static String readFully(Reader r) throws IOException {
         StringBuilder sb = new StringBuilder();
