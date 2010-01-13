@@ -25,7 +25,7 @@ package org.catacombae.io;
  */
 public abstract class BasicSynchronizedReadableRandomAccessStream extends BasicReadableRandomAccessStream implements SynchronizedReadableRandomAccess {
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public int readFrom(long pos) throws RuntimeIOException {
         byte[] res = new byte[1];
         if(readFrom(pos, res, 0, 1) == 1)
@@ -35,19 +35,19 @@ public abstract class BasicSynchronizedReadableRandomAccessStream extends BasicR
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public int readFrom(long pos, byte[] b) throws RuntimeIOException {
         return readFrom(pos, b, 0, b.length);
     }
     
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public void readFullyFrom(long pos, byte[] data) throws RuntimeIOException {
 	readFullyFrom(pos, data, 0, data.length);
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public void readFullyFrom(long pos, byte[] data, int offset, int length) throws RuntimeIOException {
         if(length < 0)
             throw new IllegalArgumentException("length is negative: " + length);

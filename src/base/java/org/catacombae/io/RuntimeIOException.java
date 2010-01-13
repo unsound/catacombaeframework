@@ -31,28 +31,32 @@ import java.io.IOException;
  */
 public class RuntimeIOException extends RuntimeException {
     private final IOException ioCause;
-    
-    public RuntimeIOException(String s) {
-        super(s);
-        ioCause = null;
+
+    public RuntimeIOException(String message) {
+        super(message);
+        this.ioCause = null;
     }
-    
-    public RuntimeIOException(IOException iIoCause) {
-        super(iIoCause);
-        if(iIoCause == null)
-            throw new IllegalArgumentException("RuntimeIOExceptions can not " +
-                    "be thrown without an underlying IOException");
-        ioCause = iIoCause;
+
+    public RuntimeIOException(RuntimeIOException cause) {
+        super(cause);
+        this.ioCause = null;
     }
-    
-    public RuntimeIOException(String message, IOException iIoCause) {
-        super(message, iIoCause);
-        if(iIoCause == null)
-            throw new IllegalArgumentException("RuntimeIOExceptions can not " +
-                    "be thrown without an underlying IOException");
-        ioCause = iIoCause;
+
+    public RuntimeIOException(String message, RuntimeIOException cause) {
+        super(message, cause);
+        this.ioCause = null;
     }
-    
+
+    public RuntimeIOException(IOException ioCause) {
+        super(ioCause);
+        this.ioCause = ioCause;
+    }
+
+    public RuntimeIOException(String message, IOException ioCause) {
+        super(message, ioCause);
+        this.ioCause = ioCause;
+    }
+
     /**
      * Returns the IOException that caused this RuntimeIOException to be thrown,
      * or <code>null</code> if the RuntimeIOException was thrown independently.
