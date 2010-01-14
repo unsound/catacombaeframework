@@ -1118,8 +1118,10 @@ public class Util {
      * @return the value of <code>i</code> in reversed byte order.
      */
     public static int byteSwap(int i) {
-        return (((i & 0xFF) << 24) | ((i & 0xFF00) << 8) |
-                ((i >> 8) & 0xFF00) | ((i >> 24) & 0xFF));
+        return (((i & 0xFF) << 24) |
+                ((i & 0xFF00) << 8) |
+                ((i >> 8) & 0xFF00) |
+                ((i >> 24) & 0xFF));
     }
 
     /**
@@ -1130,7 +1132,13 @@ public class Util {
      * @return the value of <code>i</code> in reversed byte order.
      */
     public static long byteSwap(long i) {
-        return (((i & 0xFFL) << 56) | ((i & 0xFF00L) << 40) | ((i & 0xFF0000L) << 24) | ((i & 0xFF000000L) << 8) |
-                ((i >> 8) & 0xFF000000L) | ((i >> 24) & 0xFF0000L) | ((i >> 40) & 0xFF00L) | ((i >> 56) & 0xFFL));
+        return (((i & 0xFFL) << 56) |
+                ((i & 0xFF00L) << 40) |
+                ((i & 0xFF0000L) << 24) |
+                ((i & 0xFF000000L) << 8) |
+                ((i >> 8) & 0xFF000000L) |
+                ((i >> 24) & 0xFF0000L) |
+                ((i >> 40) & 0xFF00L) |
+                ((i >> 56) & 0xFFL));
     }
 }
