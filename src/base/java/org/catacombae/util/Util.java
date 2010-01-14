@@ -1087,4 +1087,22 @@ public class Util {
 
         return data;
     }
+
+    public static short byteSwap(short i) {
+        return (short) (((i & 0xFF) << 8) | ((i >> 8) & 0xFF));
+    }
+
+    public static char byteSwap(char i) {
+        return (char) (((i & 0xFF) << 8) | ((i >> 8) & 0xFF));
+    }
+
+    public static int byteSwap(int i) {
+        return (((i & 0xFF) << 24) | ((i & 0xFF00) << 8) |
+                ((i >> 8) & 0xFF00) | ((i >> 24) & 0xFF));
+    }
+
+    public static long byteSwap(long i) {
+        return (((i & 0xFFL) << 56) | ((i & 0xFF00L) << 40) | ((i & 0xFF0000L) << 24) | ((i & 0xFF000000L) << 8) |
+                ((i >> 8) & 0xFF000000L) | ((i >> 24) & 0xFF0000L) | ((i >> 40) & 0xFF00L) | ((i >> 56) & 0xFFL));
+    }
 }
