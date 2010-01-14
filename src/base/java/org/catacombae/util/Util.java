@@ -209,37 +209,25 @@ public class Util {
 
     public static byte[] toByteArrayLE(short s) {
         byte[] result = new byte[2];
-        result[0] = (byte) ((s >> 0) & 0xFF);
-        result[1] = (byte) ((s >> 8) & 0xFF);
+        arrayPutLE(result, 0, s);
         return result;
     }
 
     public static byte[] toByteArrayLE(char c) {
         byte[] result = new byte[2];
-        result[0] = (byte) ((c >> 0) & 0xFF);
-        result[1] = (byte) ((c >> 8) & 0xFF);
+        arrayPutLE(result, 0, c);
         return result;
     }
 
     public static byte[] toByteArrayLE(int i) {
         byte[] result = new byte[4];
-        result[0] = (byte) ((i >> 0) & 0xFF);
-        result[1] = (byte) ((i >> 8) & 0xFF);
-        result[2] = (byte) ((i >> 16) & 0xFF);
-        result[3] = (byte) ((i >> 24) & 0xFF);
+        arrayPutLE(result, 0, i);
         return result;
     }
 
     public static byte[] toByteArrayLE(long l) {
         byte[] result = new byte[8];
-        result[0] = (byte) ((l >> 0) & 0xFF);
-        result[1] = (byte) ((l >> 8) & 0xFF);
-        result[2] = (byte) ((l >> 16) & 0xFF);
-        result[3] = (byte) ((l >> 24) & 0xFF);
-        result[4] = (byte) ((l >> 32) & 0xFF);
-        result[5] = (byte) ((l >> 40) & 0xFF);
-        result[6] = (byte) ((l >> 48) & 0xFF);
-        result[7] = (byte) ((l >> 56) & 0xFF);
+        arrayPutLE(result, 0, l);
         return result;
     }
 
@@ -251,37 +239,25 @@ public class Util {
 
     public static byte[] toByteArrayBE(short s) {
         byte[] result = new byte[2];
-        result[0] = (byte) ((s >> 8) & 0xFF);
-        result[1] = (byte) ((s >> 0) & 0xFF);
+        arrayPutBE(result, 0, s);
         return result;
     }
 
     public static byte[] toByteArrayBE(char c) {
         byte[] result = new byte[2];
-        result[0] = (byte) ((c >> 8) & 0xFF);
-        result[1] = (byte) ((c >> 0) & 0xFF);
+        arrayPutBE(result, 0, c);
         return result;
     }
 
     public static byte[] toByteArrayBE(int i) {
         byte[] result = new byte[4];
-        result[0] = (byte) ((i >> 24) & 0xFF);
-        result[1] = (byte) ((i >> 16) & 0xFF);
-        result[2] = (byte) ((i >> 8) & 0xFF);
-        result[3] = (byte) ((i >> 0) & 0xFF);
+        arrayPutBE(result, 0, i);
         return result;
     }
 
     public static byte[] toByteArrayBE(long l) {
         byte[] result = new byte[8];
-        result[0] = (byte) ((l >> 56) & 0xFF);
-        result[1] = (byte) ((l >> 48) & 0xFF);
-        result[2] = (byte) ((l >> 40) & 0xFF);
-        result[3] = (byte) ((l >> 32) & 0xFF);
-        result[4] = (byte) ((l >> 24) & 0xFF);
-        result[5] = (byte) ((l >> 16) & 0xFF);
-        result[6] = (byte) ((l >> 8) & 0xFF);
-        result[7] = (byte) ((l >> 0) & 0xFF);
+        arrayPutBE(result, 0, l);
         return result;
     }
 
@@ -1140,5 +1116,149 @@ public class Util {
                 ((i >> 24) & 0xFF0000L) |
                 ((i >> 40) & 0xFF00L) |
                 ((i >> 56) & 0xFFL));
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Big Endian
+     * representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, byte data) {
+        array[pos+0] = data;
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Big Endian
+     * representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, short data) {
+        array[pos+0] = (byte) ((data >> 8) & 0xFF);
+        array[pos+1] = (byte) ((data >> 0) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Big Endian
+     * representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, char data) {
+        array[pos+0] = (byte) ((data >> 8) & 0xFF);
+        array[pos+1] = (byte) ((data >> 0) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Big Endian
+     * representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, int data) {
+        array[pos+0] = (byte) ((data >> 24) & 0xFF);
+        array[pos+1] = (byte) ((data >> 16) & 0xFF);
+        array[pos+2] = (byte) ((data >> 8) & 0xFF);
+        array[pos+3] = (byte) ((data >> 0) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Big Endian
+     * representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, long data) {
+        array[pos+0] = (byte) ((data >> 56) & 0xFF);
+        array[pos+1] = (byte) ((data >> 48) & 0xFF);
+        array[pos+2] = (byte) ((data >> 40) & 0xFF);
+        array[pos+3] = (byte) ((data >> 32) & 0xFF);
+        array[pos+4] = (byte) ((data >> 24) & 0xFF);
+        array[pos+5] = (byte) ((data >> 16) & 0xFF);
+        array[pos+6] = (byte) ((data >> 8) & 0xFF);
+        array[pos+7] = (byte) ((data >> 0) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Little
+     * Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, byte data) {
+        array[pos+0] = data;
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Little
+     * Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, short data) {
+        array[pos+0] = (byte) ((data >> 0) & 0xFF);
+        array[pos+1] = (byte) ((data >> 8) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Little
+     * Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, char data) {
+        array[pos+0] = (byte) ((data >> 0) & 0xFF);
+        array[pos+1] = (byte) ((data >> 8) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Little
+     * Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, int data) {
+        array[pos+0] = (byte) ((data >> 0) & 0xFF);
+        array[pos+1] = (byte) ((data >> 8) & 0xFF);
+        array[pos+2] = (byte) ((data >> 16) & 0xFF);
+        array[pos+3] = (byte) ((data >> 24) & 0xFF);
+    }
+
+    /**
+     * Writes the specified native type to <code>array</code> using Little
+     * Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, long data) {
+        array[pos+0] = (byte) ((data >> 0) & 0xFF);
+        array[pos+1] = (byte) ((data >> 8) & 0xFF);
+        array[pos+2] = (byte) ((data >> 16) & 0xFF);
+        array[pos+3] = (byte) ((data >> 24) & 0xFF);
+        array[pos+4] = (byte) ((data >> 32) & 0xFF);
+        array[pos+5] = (byte) ((data >> 40) & 0xFF);
+        array[pos+6] = (byte) ((data >> 48) & 0xFF);
+        array[pos+7] = (byte) ((data >> 56) & 0xFF);
     }
 }
