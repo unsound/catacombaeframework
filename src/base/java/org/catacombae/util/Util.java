@@ -811,6 +811,17 @@ public class Util {
         return createCopy(b, offset, size);
     }
 
+    public static char[] readCharArrayLE(byte[] b) {
+        return readCharArrayLE(b, 0, b.length);
+    }
+
+    public static char[] readCharArrayLE(byte[] b, int offset, int length) {
+        char[] result = new char[length / 2];
+        for(int i = offset; i < result.length; ++i)
+            result[i] = Util.readCharLE(b, i * 2);
+        return result;
+    }
+
     public static char[] readCharArrayBE(byte[] b) {
         return readCharArrayBE(b, 0, b.length);
     }
@@ -819,6 +830,17 @@ public class Util {
         char[] result = new char[length / 2];
         for(int i = offset; i < result.length; ++i)
             result[i] = Util.readCharBE(b, i * 2);
+        return result;
+    }
+
+    public static short[] readShortArrayLE(byte[] b) {
+        return readShortArrayLE(b, 0, b.length);
+    }
+
+    public static short[] readShortArrayLE(byte[] b, int offset, int length) {
+        short[] result = new short[length / 2];
+        for(int i = offset; i < result.length; ++i)
+            result[i] = Util.readShortLE(b, i * 2);
         return result;
     }
 
@@ -833,6 +855,17 @@ public class Util {
         return result;
     }
 
+    public static int[] readIntArrayLE(byte[] b) {
+        return readIntArrayLE(b, 0, b.length);
+    }
+
+    public static int[] readIntArrayLE(byte[] b, int offset, int length) {
+        int[] result = new int[length / 4];
+        for(int i = offset; i < result.length; ++i)
+            result[i] = Util.readIntLE(b, i * 4);
+        return result;
+    }
+
     public static int[] readIntArrayBE(byte[] b) {
         return readIntArrayBE(b, 0, b.length);
     }
@@ -841,6 +874,17 @@ public class Util {
         int[] result = new int[length / 4];
         for(int i = offset; i < result.length; ++i)
             result[i] = Util.readIntBE(b, i * 4);
+        return result;
+    }
+
+    public static long[] readLongArrayLE(byte[] b) {
+        return readLongArrayLE(b, 0, b.length);
+    }
+
+    public static long[] readLongArrayLE(byte[] b, int offset, int length) {
+        long[] result = new long[length / 8];
+        for(int i = offset; i < result.length; ++i)
+            result[i] = Util.readLongLE(b, i * 8);
         return result;
     }
 
