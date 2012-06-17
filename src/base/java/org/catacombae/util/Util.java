@@ -1016,6 +1016,60 @@ public class Util {
      * @return true if <code>element</code> was present in <code>array</code>,
      * and false otherwise.
      */
+    public static boolean contains(byte[] array, byte element) {
+        for(byte b : array) {
+            if(b == element)
+                return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
+     *
+     * @param array the array to search.
+     * @param element the element to look for.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
+     */
+    public static boolean contains(char[] array, char element) {
+        for(char c : array) {
+            if(c == element)
+                return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
+     *
+     * @param array the array to search.
+     * @param element the element to look for.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
+     */
+    public static boolean contains(short[] array, short element) {
+        for(short s : array) {
+            if(s == element)
+                return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
+     *
+     * @param array the array to search.
+     * @param element the element to look for.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
+     */
     public static boolean contains(int[] array, int element) {
         for(int i : array) {
             if(i == element)
@@ -1023,6 +1077,41 @@ public class Util {
         }
         return false;
 
+    }
+
+    /**
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
+     *
+     * @param array the array to search.
+     * @param element the element to look for.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
+     */
+    public static boolean contains(long[] array, long element) {
+        for(long l : array) {
+            if(l == element)
+                return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
+     *
+     * @param array the array to search.
+     * @param element the element to look for.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
+     */
+    public static <A> boolean contains(A[] array, A element) {
+        for(A a : array) {
+            if(a == element)
+                return true;
+        }
+        return false;
     }
 
     /**
