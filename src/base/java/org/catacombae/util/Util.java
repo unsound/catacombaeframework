@@ -812,29 +812,45 @@ public class Util {
     }
 
     public static char[] readCharArrayBE(byte[] b) {
-        char[] result = new char[b.length / 2];
-        for(int i = 0; i < result.length; ++i)
+        return readCharArrayBE(b, 0, b.length);
+    }
+
+    public static char[] readCharArrayBE(byte[] b, int offset, int length) {
+        char[] result = new char[length / 2];
+        for(int i = offset; i < result.length; ++i)
             result[i] = Util.readCharBE(b, i * 2);
         return result;
     }
 
     public static short[] readShortArrayBE(byte[] b) {
-        short[] result = new short[b.length / 2];
-        for(int i = 0; i < result.length; ++i)
+        return readShortArrayBE(b, 0, b.length);
+    }
+
+    public static short[] readShortArrayBE(byte[] b, int offset, int length) {
+        short[] result = new short[length / 2];
+        for(int i = offset; i < result.length; ++i)
             result[i] = Util.readShortBE(b, i * 2);
         return result;
     }
 
     public static int[] readIntArrayBE(byte[] b) {
-        int[] result = new int[b.length / 4];
-        for(int i = 0; i < result.length; ++i)
+        return readIntArrayBE(b, 0, b.length);
+    }
+
+    public static int[] readIntArrayBE(byte[] b, int offset, int length) {
+        int[] result = new int[length / 4];
+        for(int i = offset; i < result.length; ++i)
             result[i] = Util.readIntBE(b, i * 4);
         return result;
     }
 
     public static long[] readLongArrayBE(byte[] b) {
-        long[] result = new long[b.length / 8];
-        for(int i = 0; i < result.length; ++i)
+        return readLongArrayBE(b, 0, b.length);
+    }
+
+    public static long[] readLongArrayBE(byte[] b, int offset, int length) {
+        long[] result = new long[length / 8];
+        for(int i = offset; i < result.length; ++i)
             result[i] = Util.readLongBE(b, i * 8);
         return result;
     }
