@@ -761,8 +761,14 @@ public class Util {
                 (data[offset + 1] & 0xFF) << 0);
     }
 
+    /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(byte[] b) {
-        return createCopy(b);
+        return readByteArrayBE(b, 0, b.length);
+    }
+
+    /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(byte[] b, int offset, int size) {
+        return createCopy(b, offset, size);
     }
 
     public static char[] readCharArrayBE(byte[] b) {
