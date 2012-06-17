@@ -407,6 +407,46 @@ public class Util {
         return copy;
     }
 
+    public static char[] createCopy(char[] data) {
+        return createCopy(data, 0, data.length);
+    }
+
+    public static char[] createCopy(char[] data, int offset, int length) {
+        char[] copy = new char[length];
+        System.arraycopy(data, offset, copy, 0, length);
+        return copy;
+    }
+
+    public static short[] createCopy(short[] data) {
+        return createCopy(data, 0, data.length);
+    }
+
+    public static short[] createCopy(short[] data, int offset, int length) {
+        short[] copy = new short[length];
+        System.arraycopy(data, offset, copy, 0, length);
+        return copy;
+    }
+
+    public static int[] createCopy(int[] data) {
+        return createCopy(data, 0, data.length);
+    }
+
+    public static int[] createCopy(int[] data, int offset, int length) {
+        int[] copy = new int[length];
+        System.arraycopy(data, offset, copy, 0, length);
+        return copy;
+    }
+
+    public static long[] createCopy(long[] data) {
+        return createCopy(data, 0, data.length);
+    }
+
+    public static long[] createCopy(long[] data, int offset, int length) {
+        long[] copy = new long[length];
+        System.arraycopy(data, offset, copy, 0, length);
+        return copy;
+    }
+
     /**
      * Creates a copy of the input data reversed byte by byte. This is helpful
      * for endian swapping.
