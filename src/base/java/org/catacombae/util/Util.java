@@ -52,7 +52,9 @@ public class Util {
         return byteArrayToHexString(array, 0, array.length);
     }
 
-    public static String byteArrayToHexString(byte[] array, int offset, int length) {
+    public static String byteArrayToHexString(byte[] array, int offset,
+            int length)
+    {
         String result = "";
         for(int i = offset; i < (offset + length); ++i) {
             byte b = array[i];
@@ -97,16 +99,45 @@ public class Util {
         return result.toString();
     }
 
-    public static String toHexStringLE(byte n) { return byteArrayToHexString(toByteArrayLE(n)); }
-    public static String toHexStringLE(short n) { return byteArrayToHexString(toByteArrayLE(n)); }
-    public static String toHexStringLE(char n) { return byteArrayToHexString(toByteArrayLE(n)); }
-    public static String toHexStringLE(int n) { return byteArrayToHexString(toByteArrayLE(n)); }
-    public static String toHexStringLE(long n) { return byteArrayToHexString(toByteArrayLE(n)); }
-    public static String toHexStringBE(byte n) { return byteArrayToHexString(toByteArrayBE(n)); }
-    public static String toHexStringBE(short n) { return byteArrayToHexString(toByteArrayBE(n)); }
-    public static String toHexStringBE(char n) { return byteArrayToHexString(toByteArrayBE(n)); }
-    public static String toHexStringBE(int n) { return byteArrayToHexString(toByteArrayBE(n)); }
-    public static String toHexStringBE(long n) { return byteArrayToHexString(toByteArrayBE(n)); }
+    public static String toHexStringLE(byte n) {
+        return byteArrayToHexString(toByteArrayLE(n));
+    }
+
+    public static String toHexStringLE(short n) {
+        return byteArrayToHexString(toByteArrayLE(n));
+    }
+
+    public static String toHexStringLE(char n) {
+        return byteArrayToHexString(toByteArrayLE(n));
+    }
+
+    public static String toHexStringLE(int n) {
+        return byteArrayToHexString(toByteArrayLE(n));
+    }
+
+    public static String toHexStringLE(long n) {
+        return byteArrayToHexString(toByteArrayLE(n));
+    }
+
+    public static String toHexStringBE(byte n) {
+        return byteArrayToHexString(toByteArrayBE(n));
+    }
+
+    public static String toHexStringBE(short n) {
+        return byteArrayToHexString(toByteArrayBE(n));
+    }
+
+    public static String toHexStringBE(char n) {
+        return byteArrayToHexString(toByteArrayBE(n));
+    }
+
+    public static String toHexStringBE(int n) {
+        return byteArrayToHexString(toByteArrayBE(n));
+    }
+
+    public static String toHexStringBE(long n) {
+        return byteArrayToHexString(toByteArrayBE(n));
+    }
 
     public static byte[] invert(byte[] array) {
         byte[] newArray = new byte[array.length];
@@ -330,7 +361,8 @@ public class Util {
         set(array, 0, array.length, value);
     }
 
-    public static void set(boolean[] ba, int offset, int length, boolean value) {
+    public static void set(boolean[] ba, int offset, int length, boolean value)
+    {
         for(int i = offset; i < length; ++i)
             ba[i] = value;
     }
@@ -376,7 +408,8 @@ public class Util {
     }
 
     /**
-     * Creates a copy of the input data reversed byte by byte. This is helpful for endian swapping.
+     * Creates a copy of the input data reversed byte by byte. This is helpful
+     * for endian swapping.
      *
      * @param data
      * @return a copy of the input data reversed byte by byte.
@@ -386,14 +419,16 @@ public class Util {
     }
 
     /**
-     * Creates a copy of the input data reversed byte by byte. This is helpful for endian swapping.
+     * Creates a copy of the input data reversed byte by byte. This is helpful
+     * for endian swapping.
      *
      * @param data
      * @param offset
      * @param length
      * @return a copy of the input data reversed byte by byte.
      */
-    public static byte[] createReverseCopy(byte[] data, int offset, int length) {
+    public static byte[] createReverseCopy(byte[] data, int offset, int length)
+    {
         byte[] copy = new byte[length];
         for(int i = 0; i < copy.length; ++i) {
             copy[i] = data[offset + (length - i - 1)];
@@ -420,7 +455,9 @@ public class Util {
         return arrayCopy(source, 0, dest, destPos, source.length);
     }
 
-    public static <T> T[] arrayCopy(T[] source, int sourcePos, T[] dest, int destPos, int length) {
+    public static <T> T[] arrayCopy(T[] source, int sourcePos, T[] dest,
+            int destPos, int length)
+    {
         if(source.length - sourcePos < length)
             throw new RuntimeException("Source array not large enough.");
         if(dest.length - destPos < length)
@@ -606,7 +643,9 @@ public class Util {
         return arrayCompareLex(a, 0, a.length, b, 0, b.length);
     }
 
-    public static int arrayCompareLex(byte[] a, int aoff, int alen, byte[] b, int boff, int blen) {
+    public static int arrayCompareLex(byte[] a, int aoff, int alen, byte[] b,
+            int boff, int blen)
+    {
         int compareLen = alen < blen ? alen : blen; // equiv. Math.min
         for(int i = 0; i < compareLen; ++i) {
             byte curA = a[aoff + i];
@@ -621,7 +660,9 @@ public class Util {
         return unsignedArrayCompareLex(a, 0, a.length, b, 0, b.length);
     }
 
-    public static int unsignedArrayCompareLex(byte[] a, int aoff, int alen, byte[] b, int boff, int blen) {
+    public static int unsignedArrayCompareLex(byte[] a, int aoff, int alen,
+            byte[] b, int boff, int blen)
+    {
         int compareLen = alen < blen ? alen : blen; // equiv. Math.min
         for(int i = 0; i < compareLen; ++i) {
             int curA = a[aoff + i] & 0xFF;
@@ -636,7 +677,9 @@ public class Util {
         return unsignedArrayCompareLex(a, 0, a.length, b, 0, b.length);
     }
 
-    public static int unsignedArrayCompareLex(char[] a, int aoff, int alen, char[] b, int boff, int blen) {
+    public static int unsignedArrayCompareLex(char[] a, int aoff, int alen,
+            char[] b, int boff, int blen)
+    {
         int compareLen = alen < blen ? alen : blen; // equiv. Math.min
         for(int i = 0; i < compareLen; ++i) {
             int curA = a[aoff + i] & 0xFFFF; // Unsigned char values represented as int
@@ -668,7 +711,9 @@ public class Util {
         return readString(data, 0, data.length, encoding);
     }
 
-    public static String readString(byte[] data, int offset, int length, String encoding) {
+    public static String readString(byte[] data, int offset, int length,
+            String encoding)
+    {
         try {
             return new String(data, offset, length, encoding);
         } catch(Exception e) {
@@ -688,7 +733,9 @@ public class Util {
         return readNullTerminatedASCIIString(data, 0, data.length);
     }
 
-    public static String readNullTerminatedASCIIString(byte[] data, int offset, int maxLength) {
+    public static String readNullTerminatedASCIIString(byte[] data, int offset,
+            int maxLength)
+    {
         int i;
         for(i = offset; i < (offset + maxLength); ++i)
             if(data[i] == 0)
@@ -774,7 +821,9 @@ public class Util {
         return result;
     }
 
-    public static byte[] fillBuffer(InputStream is, byte[] buffer) throws IOException {
+    public static byte[] fillBuffer(InputStream is, byte[] buffer)
+            throws IOException
+    {
         DataInputStream dis = new DataInputStream(is);
         dis.readFully(buffer);
         return buffer;
@@ -872,10 +921,11 @@ public class Util {
     }
 
     /**
-     * Encodes a String containing only ASCII characters into an ASCII-encoded byte array.
+     * Encodes a String containing only ASCII characters into an ASCII-encoded
+     * byte array.
      *
-     * @param s     source string.
-     * @return      the ASCII-encoded byte string corresponding to <code>s</code>.
+     * @param s source string.
+     * @return the ASCII-encoded byte string corresponding to <code>s</code>.
      */
     public static byte[] encodeASCIIString(String s) {
         byte[] result = new byte[s.codePointCount(0, s.length())];
@@ -884,8 +934,8 @@ public class Util {
     }
 
     /**
-     * Encodes a String containing only ASCII characters into ASCII-encoded data, stored in
-     * <code>b</code>.
+     * Encodes a String containing only ASCII characters into ASCII-encoded
+     * data, stored in <code>b</code>.
      *
      * @param s     source string.
      * @param sPos  read position in source String.
@@ -894,7 +944,9 @@ public class Util {
      * @param len   the number of codepoints to read from <code>s</code> and
      *              thus the number of bytes to write to <code>b</code>.
      */
-    public static void encodeASCIIString(String s, int sPos, byte[] b, int bPos, final int len) {
+    public static void encodeASCIIString(String s, int sPos, byte[] b, int bPos,
+            final int len)
+    {
         for(int i = 0; i < len; ++i) {
             int curCodePoint = s.codePointAt(i+sPos);
 
@@ -902,20 +954,21 @@ public class Util {
                 b[i+bPos] = (byte) curCodePoint;
             }
             else {
-                throw new IllegalArgumentException("Illegal ASCII character: \"" +
-                        new String(new int[]{curCodePoint}, 0, 1) +
+                throw new IllegalArgumentException("Illegal ASCII character: " +
+                        "\"" + new String(new int[]{curCodePoint}, 0, 1) +
                         "\" (0x" + Util.toHexStringBE(curCodePoint) + ")");
             }
         }
     }
 
     /**
-     * Checks if the given <code>array</code> contains the specified <code>element</code> at least
-     * once.
+     * Checks if the given <code>array</code> contains the specified
+     * <code>element</code> at least once.
      *
      * @param array the array to search.
      * @param element the element to look for.
-     * @return true if <code>element</code> was present in <code>array</code>, and false otherwise.
+     * @return true if <code>element</code> was present in <code>array</code>,
+     * and false otherwise.
      */
     public static boolean contains(int[] array, int element) {
         for(int i : array) {
@@ -927,9 +980,10 @@ public class Util {
     }
 
     /**
-     * Checks if the given list of arrays contains an array that is equal to <code>array</code> by
-     * the definition of Arrays.equal(..) (both arrays must have the same number of elements, and
-     * every pair of elements must be equal according to Object.equals).
+     * Checks if the given list of arrays contains an array that is equal to
+     * <code>array</code> by the definition of Arrays.equal(..) (both arrays
+     * must have the same number of elements, and every pair of elements must be
+     * equal according to Object.equals).
      *
      * @param <A> the type of the array.
      * @param listOfArrays the list of arrays to search.
@@ -946,17 +1000,18 @@ public class Util {
     }
 
     /**
-     * Concatenates the <code>strings</code> into one big string, putting <code>glueString</code>
-     * between each pair. Example:
-     * <code>concatenateStrings(new String[] {"joe", "lisa", "bob"}, " and ");</code> yields the
-     * string "joe and lisa and bob".
+     * Concatenates the <code>strings</code> into one big string, putting
+     * <code>glueString</code> between each pair. Example:<br/>
+     * <code>concatenateStrings(new String[] {"joe", "lisa", "bob"},
+     * " and ");</code> yields the string "joe and lisa and bob".
      *
      * @param strings
      * @param glueString
-     * @return the input strings concatenated into one string, adding the <code>glueString</code>
-     * between each pair.
+     * @return the input strings concatenated into one string, adding the
+     * <code>glueString</code> between each pair.
      */
-    public static String concatenateStrings(Object[] strings, String glueString) {
+    public static String concatenateStrings(Object[] strings, String glueString)
+    {
         if(strings.length > 0) {
             StringBuilder sb = new StringBuilder(strings[0].toString());
             for(int i = 1; i < strings.length; ++i)
@@ -967,7 +1022,9 @@ public class Util {
             return "";
     }
 
-    public static String concatenateStrings(List<? extends Object> strings, String glueString) {
+    public static String concatenateStrings(List<? extends Object> strings,
+            String glueString)
+    {
         if(strings.size() > 0) {
             StringBuilder sb = new StringBuilder();
             boolean first = true;
@@ -993,16 +1050,19 @@ public class Util {
         for(int i = parts - 1; i >= 0; --i) {
             if(i < parts-1 || (i == parts-1 && head.length() > 0))
                 sizeStringBuilder.append(" ");
-            sizeStringBuilder.append(string.substring(string.length() - (i + 1) * unitSize,
-                    string.length() - i * unitSize));
+            sizeStringBuilder.append(string.substring(string.length() -
+                    (i + 1) * unitSize, string.length() - i * unitSize));
         }
         return sizeStringBuilder.toString();
     }
 
-    public static void buildStackTrace(Throwable t, int maxStackTraceLines, StringBuilder sb) {
+    public static void buildStackTrace(Throwable t, int maxStackTraceLines,
+            StringBuilder sb)
+    {
         int stackTraceLineCount = 0;
         Throwable curThrowable = t;
-        while(curThrowable != null && stackTraceLineCount < maxStackTraceLines) {
+        while(curThrowable != null && stackTraceLineCount < maxStackTraceLines)
+        {
             sb.append(curThrowable.toString()).append("\n");
             ++stackTraceLineCount;
             for(StackTraceElement ste : curThrowable.getStackTrace()) {
@@ -1023,7 +1083,8 @@ public class Util {
         }
 
         if(stackTraceLineCount >= maxStackTraceLines)
-            sb.append("...and ").append(stackTraceLineCount-maxStackTraceLines).append(" more.");
+            sb.append("...and ").append(stackTraceLineCount-maxStackTraceLines).
+                    append(" more.");
     }
 
     /**
