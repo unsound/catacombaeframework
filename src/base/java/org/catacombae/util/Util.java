@@ -41,11 +41,11 @@ public class Util {
             b = iB;
         }
 
-        public A getA() { return a; }
-        public B getB() { return b; }
+        public final A getA() { return a; }
+        public final B getB() { return b; }
 
-        public void setA(A iA) { a = iA; }
-        public void setB(B iB) { b = iB; }
+        public final void setA(A iA) { a = iA; }
+        public final void setB(B iB) { b = iB; }
     }
     
     public static String byteArrayToHexString(byte[] array) {
