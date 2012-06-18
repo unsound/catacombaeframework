@@ -1447,6 +1447,130 @@ public class Util {
     }
 
     /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, char[] data) {
+        arrayPutBE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutBE(byte[] array, int pos, char[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutBE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, short[] data) {
+        arrayPutBE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutBE(byte[] array, int pos, short[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutBE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, int[] data) {
+        arrayPutBE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutBE(byte[] array, int pos, int[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutBE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutBE(byte[] array, int pos, long[] data) {
+        arrayPutBE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Big Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutBE(byte[] array, int pos, long[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutBE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
      * Writes the specified native type to <code>array</code> using Little
      * Endian representation.
      *
@@ -1516,5 +1640,129 @@ public class Util {
         array[pos+5] = (byte) ((data >> 40) & 0xFF);
         array[pos+6] = (byte) ((data >> 48) & 0xFF);
         array[pos+7] = (byte) ((data >> 56) & 0xFF);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, char[] data) {
+        arrayPutLE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutLE(byte[] array, int pos, char[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutLE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, short[] data) {
+        arrayPutLE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutLE(byte[] array, int pos, short[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutLE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, int[] data) {
+        arrayPutLE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutLE(byte[] array, int pos, int[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutLE(array, pos + i, data[offset + i]);
+        }
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     */
+    public static void arrayPutLE(byte[] array, int pos, long[] data) {
+        arrayPutLE(array, pos, data, 0, data.length);
+    }
+
+    /**
+     * Writes the specified array of native types to <code>array</code> using
+     * Little Endian representation.
+     *
+     * @param array the array to which we should write.
+     * @param pos the position in the array where writing should begin.
+     * @param data the data to write.
+     * @param offset offset into <code>data</code> where we should start
+     *        reading.
+     * @param length the number of array elements to put into <code>array<code>.
+     */
+    public static void arrayPutLE(byte[] array, int pos, long[] data,
+            int offset, int length)
+    {
+        for(int i = 0; i < length; ++i) {
+            arrayPutLE(array, pos + i, data[offset + i]);
+        }
     }
 }
