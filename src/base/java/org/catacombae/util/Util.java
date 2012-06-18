@@ -817,8 +817,8 @@ public class Util {
 
     public static char[] readCharArrayLE(byte[] b, int offset, int length) {
         char[] result = new char[length / 2];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readCharLE(b, i * 2);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readCharLE(b, offset + (i * 2));
         return result;
     }
 
@@ -828,8 +828,8 @@ public class Util {
 
     public static char[] readCharArrayBE(byte[] b, int offset, int length) {
         char[] result = new char[length / 2];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readCharBE(b, i * 2);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readCharBE(b, offset + (i * 2));
         return result;
     }
 
@@ -839,8 +839,8 @@ public class Util {
 
     public static short[] readShortArrayLE(byte[] b, int offset, int length) {
         short[] result = new short[length / 2];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readShortLE(b, i * 2);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readShortLE(b, offset + (i * 2));
         return result;
     }
 
@@ -850,8 +850,8 @@ public class Util {
 
     public static short[] readShortArrayBE(byte[] b, int offset, int length) {
         short[] result = new short[length / 2];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readShortBE(b, i * 2);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readShortBE(b, offset + (i * 2));
         return result;
     }
 
@@ -861,8 +861,8 @@ public class Util {
 
     public static int[] readIntArrayLE(byte[] b, int offset, int length) {
         int[] result = new int[length / 4];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readIntLE(b, i * 4);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readIntLE(b, offset + (i * 4));
         return result;
     }
 
@@ -872,8 +872,8 @@ public class Util {
 
     public static int[] readIntArrayBE(byte[] b, int offset, int length) {
         int[] result = new int[length / 4];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readIntBE(b, i * 4);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readIntBE(b, offset + (i * 4));
         return result;
     }
 
@@ -883,8 +883,8 @@ public class Util {
 
     public static long[] readLongArrayLE(byte[] b, int offset, int length) {
         long[] result = new long[length / 8];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readLongLE(b, i * 8);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readLongLE(b, offset + (i * 8));
         return result;
     }
 
@@ -894,8 +894,8 @@ public class Util {
 
     public static long[] readLongArrayBE(byte[] b, int offset, int length) {
         long[] result = new long[length / 8];
-        for(int i = offset; i < result.length; ++i)
-            result[i] = Util.readLongBE(b, i * 8);
+        for(int i = 0; i < result.length; ++i)
+            result[i] = Util.readLongBE(b, offset + (i * 8));
         return result;
     }
 
@@ -903,10 +903,10 @@ public class Util {
         return readByteArrayLE(data, 0, data.length);
     }
 
-    public static byte[] readByteArrayLE(char[] data, int offset, int size) {
-        byte[] result = new byte[data.length * 2];
-        for(int i = 0; i < data.length; ++i) {
-            byte[] cur = toByteArrayLE(data[i]);
+    public static byte[] readByteArrayLE(char[] data, int offset, int length) {
+        byte[] result = new byte[length * 2];
+        for(int i = 0; i < length; ++i) {
+            byte[] cur = toByteArrayLE(data[offset + i]);
             result[i * 2] = cur[0];
             result[i * 2 + 1] = cur[1];
         }
@@ -917,10 +917,10 @@ public class Util {
         return readByteArrayBE(data, 0, data.length);
     }
 
-    public static byte[] readByteArrayBE(char[] data, int offset, int size) {
-        byte[] result = new byte[data.length * 2];
-        for(int i = 0; i < data.length; ++i) {
-            byte[] cur = toByteArrayBE(data[i]);
+    public static byte[] readByteArrayBE(char[] data, int offset, int length) {
+        byte[] result = new byte[length * 2];
+        for(int i = 0; i < length; ++i) {
+            byte[] cur = toByteArrayBE(data[offset + i]);
             result[i * 2] = cur[0];
             result[i * 2 + 1] = cur[1];
         }
