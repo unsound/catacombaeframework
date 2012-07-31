@@ -483,7 +483,7 @@ public class Util {
     public static byte[] arrayCopy(byte[] source, byte[] dest, int destPos) {
         if(dest.length - destPos < source.length)
             throw new RuntimeException("Destination array not large enough.");
-        System.arraycopy(source, 0, dest, 0, source.length);
+        System.arraycopy(source, 0, dest, destPos, source.length);
         return dest;
     }
 
