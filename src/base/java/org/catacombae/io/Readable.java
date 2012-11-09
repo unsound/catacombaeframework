@@ -40,7 +40,7 @@ public interface Readable {
      * data</code>. If no bytes could be read due to end of stream, -1 is returned.
      * 
      * @param data the array where the output data should be stored.
-     * @return the number of bytes that was read, or -1 if no bytes could be read due to end of
+     * @return the number of bytes that were read, or -1 if no bytes could be read due to end of
      * stream.
      * @throws org.catacombae.io.RuntimeIOException if an I/O error occurred.
      */
@@ -55,7 +55,7 @@ public interface Readable {
      * @param data the array where the output data should be stored.
      * @param pos the start position in the array where data should be stored.
      * @param len the amount of data to write into the array.
-     * @return the number of bytes that was read, or -1 if no bytes could be read due to end of
+     * @return the number of bytes that were read, or -1 if no bytes could be read due to end of
      * stream.
      * @throws org.catacombae.io.RuntimeIOException if an I/O error occurred.
      */
