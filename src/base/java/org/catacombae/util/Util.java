@@ -802,6 +802,31 @@ public class Util {
     }
 
     /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(byte b) {
+        return readByteArrayBE(toByteArrayBE(b), 0, 1*1);
+    }
+
+    /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(short s) {
+        return readByteArrayBE(toByteArrayBE(s), 0, 2*2);
+    }
+
+    /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(char c) {
+        return readByteArrayBE(toByteArrayBE(c), 0, 2*2);
+    }
+
+    /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(int i) {
+        return readByteArrayBE(toByteArrayBE(i), 0, 4*2);
+    }
+
+    /** Stupid method which should go away. */
+    public static byte[] readByteArrayBE(long l) {
+        return readByteArrayBE(toByteArrayBE(l), 0, 8*2);
+    }
+
+    /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(byte[] b) {
         return readByteArrayBE(b, 0, b.length);
     }
@@ -809,6 +834,22 @@ public class Util {
     /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(byte[] b, int offset, int size) {
         return createCopy(b, offset, size);
+    }
+
+    public static char[] readCharArrayLE(short s) {
+        return readCharArrayLE(toByteArrayBE(s), 0, 1*2);
+    }
+
+    public static char[] readCharArrayLE(char c) {
+        return readCharArrayLE(toByteArrayBE(c), 0, 1*2);
+    }
+
+    public static char[] readCharArrayLE(int i) {
+        return readCharArrayLE(toByteArrayBE(i), 0, 2*2);
+    }
+
+    public static char[] readCharArrayLE(long l) {
+        return readCharArrayLE(toByteArrayBE(l), 0, 4*2);
     }
 
     public static char[] readCharArrayLE(byte[] b) {
@@ -822,6 +863,22 @@ public class Util {
         return result;
     }
 
+    public static char[] readCharArrayBE(short s) {
+        return readCharArrayBE(toByteArrayBE(s), 0, 1*2);
+    }
+
+    public static char[] readCharArrayBE(char c) {
+        return readCharArrayBE(toByteArrayBE(c), 0, 1*2);
+    }
+
+    public static char[] readCharArrayBE(int i) {
+        return readCharArrayBE(toByteArrayBE(i), 0, 2*2);
+    }
+
+    public static char[] readCharArrayBE(long l) {
+        return readCharArrayBE(toByteArrayBE(l), 0, 4*2);
+    }
+
     public static char[] readCharArrayBE(byte[] b) {
         return readCharArrayBE(b, 0, b.length);
     }
@@ -831,6 +888,22 @@ public class Util {
         for(int i = 0; i < result.length; ++i)
             result[i] = Util.readCharBE(b, offset + (i * 2));
         return result;
+    }
+
+    public static short[] readShortArrayLE(short s) {
+        return readShortArrayLE(toByteArrayBE(s), 0, 1*2);
+    }
+
+    public static short[] readShortArrayLE(char c) {
+        return readShortArrayLE(toByteArrayBE(c), 0, 1*2);
+    }
+
+    public static short[] readShortArrayLE(int i) {
+        return readShortArrayLE(toByteArrayBE(i), 0, 2*2);
+    }
+
+    public static short[] readShortArrayLE(long l) {
+        return readShortArrayLE(toByteArrayBE(l), 0, 4*2);
     }
 
     public static short[] readShortArrayLE(byte[] b) {
@@ -844,6 +917,22 @@ public class Util {
         return result;
     }
 
+    public static short[] readShortArrayBE(short s) {
+        return readShortArrayBE(toByteArrayBE(s), 0, 1*2);
+    }
+
+    public static short[] readShortArrayBE(char c) {
+        return readShortArrayBE(toByteArrayBE(c), 0, 1*2);
+    }
+
+    public static short[] readShortArrayBE(int i) {
+        return readShortArrayBE(toByteArrayBE(i), 0, 2*2);
+    }
+
+    public static short[] readShortArrayBE(long l) {
+        return readShortArrayBE(toByteArrayBE(l), 0, 4*2);
+    }
+
     public static short[] readShortArrayBE(byte[] b) {
         return readShortArrayBE(b, 0, b.length);
     }
@@ -853,6 +942,14 @@ public class Util {
         for(int i = 0; i < result.length; ++i)
             result[i] = Util.readShortBE(b, offset + (i * 2));
         return result;
+    }
+
+    public static int[] readIntArrayLE(int i) {
+        return readIntArrayLE(toByteArrayBE(i), 0, 1*4);
+    }
+
+    public static int[] readIntArrayLE(long l) {
+        return readIntArrayLE(toByteArrayBE(l), 0, 2*4);
     }
 
     public static int[] readIntArrayLE(byte[] b) {
@@ -866,6 +963,14 @@ public class Util {
         return result;
     }
 
+    public static int[] readIntArrayBE(int i) {
+        return readIntArrayBE(toByteArrayBE(i), 0, 1*4);
+    }
+
+    public static int[] readIntArrayBE(long l) {
+        return readIntArrayBE(toByteArrayBE(l), 0, 2*4);
+    }
+
     public static int[] readIntArrayBE(byte[] b) {
         return readIntArrayBE(b, 0, b.length);
     }
@@ -877,6 +982,10 @@ public class Util {
         return result;
     }
 
+    public static long[] readLongArrayLE(long l) {
+        return readLongArrayLE(toByteArrayBE(l), 0, 1*8);
+    }
+
     public static long[] readLongArrayLE(byte[] b) {
         return readLongArrayLE(b, 0, b.length);
     }
@@ -886,6 +995,10 @@ public class Util {
         for(int i = 0; i < result.length; ++i)
             result[i] = Util.readLongLE(b, offset + (i * 8));
         return result;
+    }
+
+    public static long[] readLongArrayBE(long l) {
+        return readLongArrayBE(toByteArrayBE(l), 0, 1*8);
     }
 
     public static long[] readLongArrayBE(byte[] b) {
