@@ -62,13 +62,19 @@ public class SynchronizedReadableRandomAccessStream
             seek(pos);
         }
 
-        //System.err.println("  Reading " + len + " bytes...");
-        int res = read(b, off, len);
-        //System.err.println("    read " + res + " bytes.");
+        int res;
 
-        //System.err.println("  seeking to " + oldFP + "...");
-        seek(oldFP); // Reset file pointer to previous position
-        //System.err.println("  returning " + res + ".");
+        try {
+            //System.err.println("  Reading " + len + " bytes...");
+            res = read(b, off, len);
+            //System.err.println("    read " + res + " bytes.");
+        }
+        finally {
+            //System.err.println("  seeking to " + oldFP + "...");
+            seek(oldFP); // Reset file pointer to previous position
+            //System.err.println("  returning " + res + ".");
+        }
+
         return res;
     }
 
