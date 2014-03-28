@@ -35,6 +35,7 @@ public class Java6Util {
      * @return whether or not the current VM is a Java 6 or higher VM.
      */
     public static boolean isJava6OrHigher() {
-    	return System.getProperty("java.vm.version").compareTo("1.6") >= 0;
+    	return System.getProperty("java.specification.version").
+                compareTo("1.6") >= 0;
     }
 }
