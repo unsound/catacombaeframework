@@ -808,22 +808,22 @@ public class Util {
 
     /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(short s) {
-        return readByteArrayBE(toByteArrayBE(s), 0, 2*2);
+        return readByteArrayBE(toByteArrayBE(s), 0, 2*1);
     }
 
     /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(char c) {
-        return readByteArrayBE(toByteArrayBE(c), 0, 2*2);
+        return readByteArrayBE(toByteArrayBE(c), 0, 2*1);
     }
 
     /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(int i) {
-        return readByteArrayBE(toByteArrayBE(i), 0, 4*2);
+        return readByteArrayBE(toByteArrayBE(i), 0, 4*1);
     }
 
     /** Stupid method which should go away. */
     public static byte[] readByteArrayBE(long l) {
-        return readByteArrayBE(toByteArrayBE(l), 0, 8*2);
+        return readByteArrayBE(toByteArrayBE(l), 0, 8*1);
     }
 
     /** Stupid method which should go away. */
