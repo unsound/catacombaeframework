@@ -36,12 +36,52 @@ public class IOUtil {
      * @throws org.catacombae.io.RuntimeIOException if an I/O error occurred
      * when reading the stream.
      */
-    public static byte[] readFully(ReadableRandomAccessStream s) throws RuntimeIOException {
-        if(s.length() < 0 || s.length() > Integer.MAX_VALUE)
-            throw new IllegalArgumentException("Length of s is out of range: " + s.length());
+    public static byte[] readFully(ReadableRandomAccessStream s)
+            throws RuntimeIOException
+    {
+        if(s.length() < 0 || s.length() > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Length of s is out of range: " +
+                    s.length());
+        }
 
-        byte[] res = new byte[(int)(s.length()-s.getFilePointer())];
+        return readFully(s, null, (int) s.length());
+    }
+
+    public static byte[] readFully(ReadableRandomAccessStream s, long offset,
+            int length) throws RuntimeIOException
+    {
+        return readFully(s, Long.valueOf(offset), length);
+    }
+
+    private static byte[] readFully(ReadableRandomAccessStream s, Long offset,
+            int length) throws RuntimeIOException
+    {
+        long trueOffset;
+
+        if(offset == null) {
+            trueOffset = s.getFilePointer();
+        }
+        else {
+            trueOffset = offset;
+        }
+
+        if(length > s.length()) {
+            throw new IllegalArgumentException("'length' is unreasonably " +
+                    "large: " + length);
+        }
+        else if((s.length() - length) < offset) {
+            throw new IllegalArgumentException("Offset out of range: " +
+                    offset + "(length: " + s.length() + ")");
+        }
+
+        byte[] res = new byte[length];
+
+        if(offset != null) {
+            s.seek(trueOffset);
+        }
+
         s.readFully(res);
+
         return res;
     }
 }
