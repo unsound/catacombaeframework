@@ -18,6 +18,8 @@
 
 package org.catacombae.io;
 
+import org.catacombae.util.Util;
+
 /**
  * This class adds concurrency safety to a random access stream. It includes a
  * seek+read atomic operation. All operations on this object is synchronized on
@@ -26,6 +28,14 @@ package org.catacombae.io;
 public class SynchronizedReadableRandomAccessStream
         extends BasicSynchronizedReadableRandomAccessStream
         implements SynchronizedReadableRandomAccess {
+
+    private static final boolean DEBUG =
+            Util.booleanEnabledByProperties(false,
+            "org.catacombae.debug",
+            "org.catacombae.io.debug",
+            "org.catacombae.io." +
+            SynchronizedReadableRandomAccessStream.class.getSimpleName() +
+            ".debug");
 
     /** The underlying stream. */
     private ReadableRandomAccessStream ras;
@@ -52,28 +62,39 @@ public class SynchronizedReadableRandomAccessStream
     //@Override
     public synchronized int readFrom(final long pos, byte[] b, int off, int len)
             throws RuntimeIOException {
-        //System.err.println("SynchronizedReadableRandomAccessStream.readFrom" +
-        //        "(" + pos + ", byte[" + b.length + "], " + off + ", " + len +
-        //        ");");
+        if(DEBUG) {
+            System.err.println(
+                    "SynchronizedReadableRandomAccessStream.readFrom(" + pos +
+                    ", byte[" + b.length + "], " + off + ", " + len + ");");
+        }
+
         final long oldFP = getFilePointer();
-        //System.err.println("  oldFP=" + oldFP);
+
+        if(DEBUG) { System.err.println("  oldFP=" + oldFP); }
+
         if(oldFP != pos) {
-            //System.err.println("  seeking to " + pos + "...");
+            if(DEBUG) { System.err.println("  seeking to " + pos + "..."); }
+
             seek(pos);
         }
 
         int res;
 
         try {
-            //System.err.println("  Reading " + len + " bytes...");
+            if(DEBUG) { System.err.println("  Reading " + len + " bytes..."); }
+
             res = read(b, off, len);
-            //System.err.println("    read " + res + " bytes.");
+
+            if(DEBUG) { System.err.println("    read " + res + " bytes."); }
         }
         finally {
-            //System.err.println("  seeking to " + oldFP + "...");
+            if(DEBUG) { System.err.println("  seeking to " + oldFP + "..."); }
+
             seek(oldFP); // Reset file pointer to previous position
-            //System.err.println("  returning " + res + ".");
+
         }
+
+        if(DEBUG) { System.err.println("  returning " + res + "."); }
 
         return res;
     }
@@ -144,9 +165,11 @@ public class SynchronizedReadableRandomAccessStream
     //@Override
     public synchronized int read(byte[] b, int off, int len)
             throws RuntimeIOException {
-        //System.err.println("SynchronizedReadableRandomAccessStream.read(" +
-        //        "byte[" + b.length + "], " + off + ", " + len + ");");
-        //System.err.println("  ras=" + ras);
+        if(DEBUG) {
+            System.err.println("SynchronizedReadableRandomAccessStream.read(" +
+                    "byte[" + b.length + "], " + off + ", " + len + ");");
+            System.err.println("  ras=" + ras);
+        }
 
         return ras.read(b, off, len);
     }

@@ -1878,4 +1878,28 @@ public class Util {
             arrayPutLE(array, pos + i, data[offset + i]);
         }
     }
+
+    public static boolean booleanEnabledByProperties(boolean defaultValue,
+            final String... debugProperties)
+    {
+        boolean debug = defaultValue;
+        for(String debugProperty : debugProperties) {
+            String value = System.getProperty(debugProperty);
+
+            if(value == null);
+            else if(value.equals("true")) {
+                debug = true;
+            }
+            else if(value.equals("false")) {
+                debug = false;
+            }
+            else {
+                System.err.println("[WARNING] Unrecognized value for debug " +
+                        "property \"" + debugProperty + "\": \"" + value +
+                        "\"");
+            }
+        }
+
+        return debug;
+    }
 }

@@ -18,6 +18,8 @@
 
 package org.catacombae.io;
 
+import org.catacombae.util.Util;
+
 /**
  * A substream class using a SynchronizedReadableRandomAccess as source for a
  * completely independent stream with its own file pointer and access to the
@@ -26,6 +28,13 @@ package org.catacombae.io;
  * @author Erik Larsson
  */
 public class ReadableRandomAccessSubstream extends BasicReadableRandomAccessStream {
+    private static final boolean DEBUG =
+            Util.booleanEnabledByProperties(false,
+            "org.catacombae.debug",
+            "org.catacombae.io.debug",
+            "org.catacombae.io." +
+            ReadableRandomAccessSubstream.class.getSimpleName() + ".debug");
+
     private SynchronizedReadableRandomAccess sourceStream;
     private long internalFP;
     
@@ -58,16 +67,27 @@ public class ReadableRandomAccessSubstream extends BasicReadableRandomAccessStre
 
     @Override
     public int read(byte[] b, int pos, int len) throws RuntimeIOException {
-        //System.err.println("ReadableRandomAccessSubstream.read(byte[" + b.length + "], " + pos + ", " + len + ");");
-        //System.err.println("  readFrom: " + internalFP);
+        if(DEBUG) {
+            System.err.println("ReadableRandomAccessSubstream.read(byte[" +
+                    b.length + "], " + pos + ", " + len + ");");
+            System.err.println("  readFrom: " + internalFP);
+        }
+
         int bytesRead = sourceStream.readFrom(internalFP, b, pos, len);
         if(bytesRead > 0) {
             internalFP += bytesRead;
-            //System.err.println("  returning: " + bytesRead);
+
+            if(DEBUG) {
+                System.err.println("  returning: " + bytesRead);
+            }
+
             return bytesRead;
         }
         else {
-            //System.err.println("  returning: -1");
+            if(DEBUG) {
+                System.err.println("  returning: -1");
+            }
+
             return -1;
         }
     }

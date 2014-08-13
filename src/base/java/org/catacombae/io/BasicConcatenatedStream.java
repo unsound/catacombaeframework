@@ -21,6 +21,7 @@ package org.catacombae.io;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.catacombae.util.Util;
 
 /**
  * Common superclass of ReadableConcatenatedStream and ConcatenatedStream.
@@ -32,6 +33,20 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
     private static final IOLog log =
             IOLog.getInstance(BasicConcatenatedStream.class);
+
+    static {
+        log.debug = Util.booleanEnabledByProperties(log.debug,
+                "org.catacombae.debug",
+                "org.catacombae.io.debug",
+                "org.catacombae.io." +
+                BasicConcatenatedStream.class.getSimpleName() + ".debug");
+
+        log.trace = Util.booleanEnabledByProperties(log.trace,
+                "org.catacombae.debug",
+                "org.catacombae.io.debug",
+                "org.catacombae.io." +
+                BasicConcatenatedStream.class.getSimpleName() + ".trace");
+    }
 
     protected class Part {
 
@@ -109,7 +124,10 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
         //String METHOD_NAME = "read";
         if(log.trace)
             log.traceEnter("read", data, off, len);
-        //log(METHOD_NAME, "virtualFP=" + virtualFP);
+
+        if(log.debug) {
+            log.debug("virtualFP=" + virtualFP);
+        }
 
         try {
             int bytesRead = 0;
@@ -131,32 +149,58 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
             while(requestedPartIndex < parts.size()) {
                 Part requestedPart = parts.get(requestedPartIndex++);
-                //log(METHOD_NAME, "requestedPart.length = " + requestedPart.length);
-                //log(METHOD_NAME, "requestedPart.startOffset = " + requestedPart.startOffset);
+
+                if(log.debug) {
+                    log.debug("requestedPart.length = " + requestedPart.length);
+                    log.debug("requestedPart.startOffset = " +
+                            requestedPart.startOffset);
+                }
 
                 long bytesToSkipInPart = bytesToSkip;
-                //log(METHOD_NAME, "bytesToSkipInPart=" + bytesToSkipInPart);
+
+                if(log.debug) {
+                    log.debug("bytesToSkipInPart=" + bytesToSkipInPart);
+                }
 
                 bytesToSkip = 0;
 
                 int bytesLeftToRead = len - bytesRead;
-                //log(METHOD_NAME, "bytesLeftToRead = " + bytesLeftToRead);
+
+                if(log.debug) {
+                    log.debug("bytesLeftToRead = " + bytesLeftToRead);
+                }
+
                 int bytesToRead = (int) (bytesLeftToRead < requestedPart.length
                         ? bytesLeftToRead : requestedPart.length);
-                //log(METHOD_NAME, "bytesToRead = " + bytesToRead);
-                //log(METHOD_NAME, "seeking to " + bytesToSkipInPart);
+
+                if(log.debug) {
+                    log.debug("bytesToRead = " + bytesToRead);
+                    log.debug("seeking to " + bytesToSkipInPart);
+                }
+
                 requestedPart.file.seek(requestedPart.startOffset + bytesToSkipInPart);
-                //log(METHOD_NAME, "invoking requestedPart.file.read(byte[" +
-                //        data.length + "], " + (off+bytesRead) + ", " + bytesToRead
-                //        + ")");
+
+                if(log.debug) {
+                    log.debug("invoking requestedPart.file.read(byte[" +
+                            data.length + "], " + (off + bytesRead) + ", " +
+                            bytesToRead + ")");
+                }
+
                 int res = requestedPart.file.read(data, off + bytesRead,
                         bytesToRead);
-                //log(METHOD_NAME, "res = " + res);
+
+                if(log.debug) {
+                    log.debug("res = " + res);
+                }
+
                 if(res > 0) {
                     virtualFP += res;
                     bytesRead += res;
                     if(bytesRead == len) {
-                        //log(METHOD_NAME, "returning " + bytesRead);
+                        if(log.debug) {
+                            log.debug("returning " + bytesRead);
+                        }
+
                         return bytesRead;
                     }
                     else if(bytesRead > len)
@@ -188,7 +232,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
         long result = 0;
         for(Part p : parts)
             result += p.length;
-        //log(METHOD_NAME, "returning " + result);
+        log.debug("returning " + result);
 
         if(log.trace) {
             log.traceReturn(virtualFP);

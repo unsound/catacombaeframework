@@ -21,6 +21,7 @@ package org.catacombae.io;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import org.catacombae.util.Util;
 
 /**
  * This class wraps a java.io.RandomAccessFile (opened in read-only mode) and
@@ -32,6 +33,20 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
 
     private static final IOLog log =
             IOLog.getInstance(ReadableFileStream.class);
+
+    static {
+        log.debug = Util.booleanEnabledByProperties(log.debug,
+                "org.catacombae.debug",
+                "org.catacombae.io.debug",
+                "org.catacombae.io." +
+                ReadableFileStream.class.getSimpleName() + ".debug");
+
+        log.trace = Util.booleanEnabledByProperties(log.trace,
+                "org.catacombae.debug",
+                "org.catacombae.io.debug",
+                "org.catacombae.io." +
+                ReadableFileStream.class.getSimpleName() + ".trace");
+    }
 
     protected final RandomAccessFile raf;
 
