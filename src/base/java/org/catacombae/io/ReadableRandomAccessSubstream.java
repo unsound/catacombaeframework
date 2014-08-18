@@ -37,6 +37,7 @@ public class ReadableRandomAccessSubstream extends BasicReadableRandomAccessStre
 
     private SynchronizedReadableRandomAccess sourceStream;
     private long internalFP;
+    private boolean closed = false;
     
     public ReadableRandomAccessSubstream(SynchronizedReadableRandomAccess iSourceStream) {
         this.sourceStream = iSourceStream;
@@ -46,8 +47,13 @@ public class ReadableRandomAccessSubstream extends BasicReadableRandomAccessStre
     }
     
     @Override
-    public void close() throws RuntimeIOException {
+    public synchronized void close() throws RuntimeIOException {
+        if(closed) {
+            throw new RuntimeException(this + " already closed!");
+        }
+
         sourceStream.removeReference(this);
+        closed = true;
     }
 
     @Override
