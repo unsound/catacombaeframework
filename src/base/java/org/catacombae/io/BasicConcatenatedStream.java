@@ -31,8 +31,7 @@ import org.catacombae.util.Util;
 public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStream>
         extends BasicReadableRandomAccessStream {
 
-    private static final IOLog log =
-            IOLog.getInstance(BasicConcatenatedStream.class);
+    private static final IOLog log = IOLog.getInstance();
 
     static {
         log.debug = Util.booleanEnabledByProperties(log.debug,
@@ -66,7 +65,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
     protected BasicConcatenatedStream(A firstPart, long startOffset, long length) {
         if(log.trace)
-            log.traceEnter(null, firstPart, startOffset, length);
+            log.traceEnter(firstPart, startOffset, length);
 
         try {
             Part currentPart = new Part(firstPart, startOffset, length);
@@ -74,7 +73,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             virtualFP = 0;
         } finally {
             if(log.trace)
-                log.traceLeave(null, firstPart, startOffset, length);
+                log.traceLeave(firstPart, startOffset, length);
         }
     }
 
@@ -101,29 +100,29 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
     public void addPart(A newFile, long off, long len) {
         if(log.trace)
-            log.traceEnter("addPart", newFile, off, len);
+            log.traceEnter(newFile, off, len);
 
         Part newPart = new Part(newFile, off, len);
         parts.add(newPart);
 
         if(log.trace)
-            log.traceLeave("addPart", newFile, off, len);
+            log.traceLeave(newFile, off, len);
     }
 
     public void seek(long pos) {
         if(log.trace)
-            log.traceEnter("seek", pos);
+            log.traceEnter(pos);
 
         virtualFP = pos;
 
         if(log.trace)
-            log.traceLeave("seek", pos);
+            log.traceLeave(pos);
     }
 
     public int read(byte[] data, int off, int len) {
         //String METHOD_NAME = "read";
         if(log.trace)
-            log.traceEnter("read", data, off, len);
+            log.traceEnter(data, off, len);
 
         if(log.debug) {
             log.debug("virtualFP=" + virtualFP);
@@ -220,14 +219,14 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             return bytesRead;
         } finally {
             if(log.trace)
-                log.traceLeave("read", data, off, len);
+                log.traceLeave(data, off, len);
         }
     }
 
     public long length() {
         //String METHOD_NAME = "length";
         if(log.trace)
-            log.traceEnter("length");
+            log.traceEnter();
 
         long result = 0;
         for(Part p : parts)
@@ -236,7 +235,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
         if(log.trace) {
             log.traceReturn(virtualFP);
-            log.traceLeave("length");
+            log.traceLeave();
         }
         return result;
     }
@@ -244,9 +243,9 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
     public long getFilePointer() {
         //String METHOD_NAME = "getFilePointer";
         if(log.trace) {
-            log.traceEnter("getFilePointer");
+            log.traceEnter();
             log.traceReturn(virtualFP);
-            log.traceLeave("getFilePointer");
+            log.traceLeave();
         }
         return virtualFP;
     }
@@ -254,13 +253,13 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
     /** Closes all the files constituting this BasicConcatenatedStream. */
     public void close() {
         if(log.trace)
-            log.traceEnter("close");
+            log.traceEnter();
 
         for(Part p : parts)
             p.file.close();
 
         if(log.trace)
-            log.traceLeave("close");
+            log.traceLeave();
     }
 
 }

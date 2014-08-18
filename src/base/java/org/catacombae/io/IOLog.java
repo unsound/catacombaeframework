@@ -36,11 +36,7 @@ class IOLog {
     /** The current setting of the 'debug' log level for this instance. */
     public boolean debug = defaultDebug;
 
-    private final String className;
-
-    private IOLog(String className) {
-        this.className = className;
-    }
+    private IOLog() {}
 
     /** Emits a 'debug' level message. */
     public void debug(String message) {
@@ -65,8 +61,13 @@ class IOLog {
      * constructor and the message will be formatted accordingly.
      * @param args the method/constructor's arguments.
      */
-    public void traceEnter(String methodName, Object... args) {
+    public void traceEnter(Object... args) {
         if(trace) {
+            final StackTraceElement ste =
+                    Thread.currentThread().getStackTrace()[2];
+            final String className = ste.getClass().getSimpleName();
+            final String methodName = ste.getMethodName();
+
             StringBuilder sb = new StringBuilder("ENTER: ");
             sb.append(className);
             if(methodName != null)
@@ -92,8 +93,13 @@ class IOLog {
      * constructor and the message will be formatted accordingly.
      * @param args the method/constructor's arguments.
      */
-    public void traceLeave(String methodName, /*Object retval, */Object... args) {
+    public void traceLeave(Object... args) {
         if(trace) {
+            final StackTraceElement ste =
+                    Thread.currentThread().getStackTrace()[2];
+            final String className = ste.getClass().getSimpleName();
+            final String methodName = ste.getMethodName();
+
             StringBuilder sb = new StringBuilder("LEAVE: ");
             sb.append(className);
             if(methodName != null)
@@ -130,8 +136,8 @@ class IOLog {
      * @param cls the class for which the instance should be valid.
      * @return an IOLog instance.
      */
-    public static IOLog getInstance(Class cls) {
-        return new IOLog(cls.getSimpleName());
+    public static IOLog getInstance() {
+        return new IOLog();
     }
 
     /*

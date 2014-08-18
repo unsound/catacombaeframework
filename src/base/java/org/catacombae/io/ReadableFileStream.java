@@ -31,8 +31,7 @@ import org.catacombae.util.Util;
  */
 public class ReadableFileStream implements ReadableRandomAccessStream {
 
-    private static final IOLog log =
-            IOLog.getInstance(ReadableFileStream.class);
+    private static final IOLog log = IOLog.getInstance();
 
     static {
         log.debug = Util.booleanEnabledByProperties(log.debug,
@@ -60,7 +59,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
 
     public ReadableFileStream(RandomAccessFile raf) {
         if(log.trace)
-            log.traceEnter(null, raf);
+            log.traceEnter(raf);
 
         try {
             if(raf == null)
@@ -68,7 +67,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             this.raf = raf;
         } finally {
             if(log.trace)
-                log.traceLeave(null, raf);
+                log.traceLeave(raf);
         }
     }
 
@@ -78,7 +77,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
 
     protected ReadableFileStream(File file, String mode) {
         if(log.trace)
-            log.traceEnter(null, file, mode);
+            log.traceEnter(file, mode);
 
         try {
             this.raf = new RandomAccessFile(file, mode);
@@ -86,13 +85,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave(null, file, mode);
+                log.traceLeave(file, mode);
         }
     }
 
     public void seek(long pos) {
         if(log.trace)
-            log.traceEnter("seek", pos);
+            log.traceEnter(pos);
 
         try {
             raf.seek(pos);
@@ -101,13 +100,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
                     ioe);
         } finally {
             if(log.trace)
-                log.traceLeave("seek", pos);
+                log.traceLeave(pos);
         }
     }
 
     public int read() {
         if(log.trace)
-            log.traceEnter("read");
+            log.traceEnter();
 
         try {
             int res = raf.read();
@@ -118,13 +117,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("read");
+                log.traceLeave();
         }
     }
 
     public int read(byte[] data) {
         if(log.trace)
-            log.traceEnter("read", data);
+            log.traceEnter(data);
 
         try {
             int res = raf.read(data);
@@ -135,13 +134,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("read", data);
+                log.traceLeave(data);
         }
     }
 
     public int read(byte[] data, int pos, int len) {
         if(log.trace)
-            log.traceEnter("read", data, pos, len);
+            log.traceEnter(data, pos, len);
 
         try {
             int res = raf.read(data, pos, len);
@@ -152,13 +151,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("read", data, pos, len);
+                log.traceLeave(data, pos, len);
         }
     }
 
     public void readFully(byte[] data) {
         if(log.trace)
-            log.traceEnter("readFully", data);
+            log.traceEnter(data);
 
         try {
             raf.readFully(data);
@@ -166,13 +165,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("readFully", data);
+                log.traceLeave(data);
         }
     }
 
     public void readFully(byte[] data, int offset, int length) {
         if(log.trace)
-            log.traceEnter("readFully", data, offset, length);
+            log.traceEnter(data, offset, length);
 
         try {
             raf.readFully(data, offset, length);
@@ -180,14 +179,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("readFully", data, offset,
-                        length);
+                log.traceLeave(data, offset, length);
         }
     }
 
     public long length() {
         if(log.trace)
-            log.traceEnter("length");
+            log.traceEnter();
 
         try {
             return raf.length();
@@ -195,13 +193,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("length");
+                log.traceLeave();
         }
     }
 
     public long getFilePointer() {
         if(log.trace)
-            log.traceEnter("getFilePointer");
+            log.traceEnter();
 
         try {
             long res = raf.getFilePointer();
@@ -212,13 +210,13 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("getFilePointer");
+                log.traceLeave();
         }
     }
 
     public void close() {
         if(log.trace)
-            log.traceEnter("close");
+            log.traceEnter();
 
         try {
             raf.close();
@@ -226,7 +224,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             throw new RuntimeIOException(ex);
         } finally {
             if(log.trace)
-                log.traceLeave("close");
+                log.traceLeave();
         }
     }
 }
