@@ -45,6 +45,7 @@ public class SynchronizedReadableRandomAccessStream
     public SynchronizedReadableRandomAccessStream(
             ReadableRandomAccessStream sourceStream) {
         this.ras = sourceStream;
+        this.refCount = 1;
     }
 
     /**
@@ -128,13 +129,19 @@ public class SynchronizedReadableRandomAccessStream
     /** {@inheritDoc} */
     //@Override
     public synchronized void close() throws RuntimeIOException {
+        if(closed) {
+            throw new RuntimeException("Already closed.");
+        }
+
+        --refCount;
+        tryCloseSource();
+        closed = true;
+    }
+
+    private void tryCloseSource() {
         if(refCount == 0) {
             ras.close();
-            closed = true;
         }
-        else
-            throw new RuntimeIOException(refCount + " instances are still " +
-                    "using this stream!");
     }
 
     /** {@inheritDoc} */
@@ -193,5 +200,7 @@ public class SynchronizedReadableRandomAccessStream
     //@Override
     public synchronized void removeReference(Object referrer) {
         --refCount;
+
+        tryCloseSource();
     }
 }
