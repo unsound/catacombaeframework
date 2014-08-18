@@ -18,6 +18,7 @@
 
 package org.catacombae.io;
 
+import java.util.HashMap;
 import org.catacombae.util.Util;
 
 /**
@@ -36,16 +37,28 @@ public class SynchronizedReadableRandomAccessStream
             "org.catacombae.io." +
             SynchronizedReadableRandomAccessStream.class.getSimpleName() +
             ".debug");
+    private static final boolean REFERENCES_DEBUG =
+            Util.booleanEnabledByProperties(DEBUG,
+            "org.catacombae.io." +
+            SynchronizedReadableRandomAccessStream.class.getSimpleName() +
+            ".references_debug");
 
     /** The underlying stream. */
     private ReadableRandomAccessStream ras;
     private long refCount;
     private boolean closed = false;
+    private HashMap<Object, Reference> references =
+            REFERENCES_DEBUG ? new HashMap<Object, Reference>() : null;
 
     public SynchronizedReadableRandomAccessStream(
             ReadableRandomAccessStream sourceStream) {
         this.ras = sourceStream;
         this.refCount = 1;
+
+        if(REFERENCES_DEBUG) {
+            references.put(this, new Reference(this,
+                    new Exception().getStackTrace()));
+        }
     }
 
     /**
@@ -129,8 +142,21 @@ public class SynchronizedReadableRandomAccessStream
     /** {@inheritDoc} */
     //@Override
     public synchronized void close() throws RuntimeIOException {
+        if(DEBUG) {
+            System.err.println(
+                    SynchronizedReadableRandomAccessStream.class.getName() +
+                    "@" + Util.toHexStringBE(hashCode()) + ".close(): Called " +
+                    "from " + new Exception().getStackTrace()[1] + ".");
+        }
+
         if(closed) {
             throw new RuntimeException("Already closed.");
+        }
+
+        if(REFERENCES_DEBUG) {
+            if(references.remove(this) == null) {
+                throw new RuntimeException("Own reference not found!");
+            }
         }
 
         --refCount;
@@ -190,8 +216,24 @@ public class SynchronizedReadableRandomAccessStream
     /** {@inheritDoc} */
     //@Override
     public synchronized void addReference(Object referrer) {
-        if(!closed)
+        if(DEBUG) {
+            System.err.println(this + ": Reference added (" + refCount + " " +
+                    "-> " + (refCount + 1) + ") by " + referrer + ".");
+        }
+
+        if(!closed) {
+            if(REFERENCES_DEBUG) {
+                if(references.get(referrer) != null) {
+                    throw new RuntimeException("Only one reference per " +
+                            "referrer is allowed.");
+                }
+
+                references.put(referrer, new Reference(referrer,
+                        new Exception().getStackTrace()));
+            }
+
             ++refCount;
+        }
         else
             throw new RuntimeIOException("Stream is closed!");
     }
@@ -201,6 +243,17 @@ public class SynchronizedReadableRandomAccessStream
     public synchronized void removeReference(Object referrer) {
         if((closed && refCount == 0) || (!closed && refCount == 1)) {
             throw new RuntimeException("No references!");
+        }
+
+        if(DEBUG) {
+            System.err.println(this + ": Reference removed (" + refCount + " " +
+                    "-> " + (refCount - 1) + ") by " + referrer + ".");
+        }
+
+        if(REFERENCES_DEBUG) {
+            if(references.remove(referrer) == null) {
+                throw new RuntimeException("Reference not found!");
+            }
         }
 
         --refCount;
@@ -213,11 +266,29 @@ public class SynchronizedReadableRandomAccessStream
         try {
             if(refCount != 0) {
                 System.err.println("[WARNING] " + this + " is garbage " +
-                        "collected with " + refCount + " remaining " +
-                        "references.");
+                        "collected with " + refCount + " remaining references" +
+                        (REFERENCES_DEBUG ? ":" : "."));
+                if(REFERENCES_DEBUG) {
+                    for(Reference r : references.values()) {
+                        System.err.println(r.referrer);
+                        for(StackTraceElement ste : r.stackTrace) {
+                            System.err.println("\t" + ste);
+                        }
+                    }
+                }
             }
         } finally {
             super.finalize();
+        }
+    }
+
+    private class Reference {
+        final Object referrer;
+        final StackTraceElement[] stackTrace;
+
+        public Reference(Object referrer, StackTraceElement[] stackTrace) {
+            this.referrer = referrer;
+            this.stackTrace = stackTrace;
         }
     }
 }
