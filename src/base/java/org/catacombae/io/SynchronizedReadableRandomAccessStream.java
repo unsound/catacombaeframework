@@ -207,4 +207,17 @@ public class SynchronizedReadableRandomAccessStream
 
         tryCloseSource();
     }
+
+    @Override
+    public synchronized void finalize() throws Throwable {
+        try {
+            if(refCount != 0) {
+                System.err.println("[WARNING] " + this + " is garbage " +
+                        "collected with " + refCount + " remaining " +
+                        "references.");
+            }
+        } finally {
+            super.finalize();
+        }
+    }
 }
