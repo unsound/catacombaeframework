@@ -199,6 +199,10 @@ public class SynchronizedReadableRandomAccessStream
     /** {@inheritDoc} */
     //@Override
     public synchronized void removeReference(Object referrer) {
+        if((closed && refCount == 0) || (!closed && refCount == 1)) {
+            throw new RuntimeException("No references!");
+        }
+
         --refCount;
 
         tryCloseSource();
