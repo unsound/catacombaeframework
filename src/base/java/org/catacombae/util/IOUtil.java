@@ -69,9 +69,9 @@ public class IOUtil {
             throw new IllegalArgumentException("'length' is unreasonably " +
                     "large: " + length);
         }
-        else if((s.length() - length) < offset) {
+        else if((s.length() - length) < trueOffset) {
             throw new IllegalArgumentException("Offset out of range: " +
-                    offset + "(length: " + s.length() + ")");
+                    trueOffset + "(length: " + s.length() + ")");
         }
 
         byte[] res = new byte[length];
