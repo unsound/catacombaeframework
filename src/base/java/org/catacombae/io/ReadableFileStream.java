@@ -63,7 +63,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
 
         try {
             if(raf == null)
-                throw new IllegalArgumentException("iRaf may NOT be null");
+                throw new IllegalArgumentException("raf may NOT be null");
             this.raf = raf;
         } finally {
             if(log.trace)
