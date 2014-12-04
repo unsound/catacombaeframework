@@ -155,6 +155,24 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
         }
     }
 
+    public byte readFully() {
+        if(log.trace) {
+            log.traceEnter();
+        }
+
+        try {
+            byte[] data = new byte[1];
+            raf.readFully(data);
+            return data[0];
+        } catch(IOException ex) {
+            throw new RuntimeIOException(ex);
+        } finally {
+            if(log.trace) {
+                log.traceLeave();
+            }
+        }
+    }
+
     public void readFully(byte[] data) {
         if(log.trace)
             log.traceEnter(data);

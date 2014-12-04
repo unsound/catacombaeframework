@@ -45,6 +45,11 @@ public class ReadableFilterStream implements ReadableRandomAccessStream {
     public int read(byte[] data, int pos, int len) {
 	return backingStore.read(data, pos, len);
     }
+
+    public byte readFully() {
+        return backingStore.readFully();
+    }
+
     public void readFully(byte[] data) {
 	backingStore.readFully(data);
     }

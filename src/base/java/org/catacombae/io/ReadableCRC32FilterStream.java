@@ -57,6 +57,13 @@ public class ReadableCRC32FilterStream implements ReadableRandomAccessStream {
 	if(res > 0) checksum.update(data, pos, res);
 	return res;
     }
+
+    public byte readFully() {
+        byte res = source.readFully();
+        if(res > 0) checksum.update(res & 0xFF);
+        return res;
+    }
+
     public void readFully(byte[] data) {
 	source.readFully(data);
 	checksum.update(data);

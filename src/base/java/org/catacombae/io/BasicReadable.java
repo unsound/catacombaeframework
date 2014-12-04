@@ -48,6 +48,13 @@ public abstract class BasicReadable implements Readable {
     public abstract int read(byte[] data, int pos, int len) throws RuntimeIOException;
 
     /** {@inheritDoc} */
+    public byte readFully() throws RuntimeIOException {
+        byte[] data = new byte[1];
+        readFully(data, 0, 1);
+        return data[0];
+    }
+
+    /** {@inheritDoc} */
     public void readFully(byte[] data) throws RuntimeIOException {
         readFully(data, 0, data.length);
     }
