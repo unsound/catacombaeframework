@@ -477,22 +477,231 @@ public class Util {
     }
 
     public static byte[] arrayCopy(byte[] source, byte[] dest) {
-        return arrayCopy(source, dest, 0);
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static byte[] arrayCopy(byte[] source, int sourcePos, byte[] dest) {
+        return arrayCopy(source, sourcePos, dest, 0);
     }
 
     public static byte[] arrayCopy(byte[] source, byte[] dest, int destPos) {
-        if(dest.length - destPos < source.length)
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static byte[] arrayCopy(byte[] source, int sourcePos, byte[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static byte[] arrayCopy(byte[] source, int sourcePos, byte[] dest,
+            int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
             throw new RuntimeException("Destination array not large enough.");
-        System.arraycopy(source, 0, dest, destPos, source.length);
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
+        return dest;
+    }
+
+    public static boolean[] arrayCopy(boolean[] source, boolean[] dest) {
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static boolean[] arrayCopy(boolean[] source, int sourcePos,
+            boolean[] dest)
+    {
+        return arrayCopy(source, sourcePos, dest, 0);
+    }
+
+    public static boolean[] arrayCopy(boolean[] source, boolean[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static boolean[] arrayCopy(boolean[] source, int sourcePos,
+            boolean[] dest, int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static boolean[] arrayCopy(boolean[] source, int sourcePos,
+            boolean[] dest, int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
+            throw new RuntimeException("Destination array not large enough.");
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
+        return dest;
+    }
+
+    public static short[] arrayCopy(short[] source, short[] dest) {
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static short[] arrayCopy(short[] source, int sourcePos, short[] dest)
+    {
+        return arrayCopy(source, sourcePos, dest, 0);
+    }
+
+    public static short[] arrayCopy(short[] source, short[] dest, int destPos) {
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static short[] arrayCopy(short[] source, int sourcePos, short[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static short[] arrayCopy(short[] source, int sourcePos, short[] dest,
+            int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
+            throw new RuntimeException("Destination array not large enough.");
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
+        return dest;
+    }
+
+    public static char[] arrayCopy(char[] source, char[] dest) {
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static char[] arrayCopy(char[] source, int sourcePos, char[] dest) {
+        return arrayCopy(source, sourcePos, dest, 0);
+    }
+
+    public static char[] arrayCopy(char[] source, char[] dest, int destPos) {
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static char[] arrayCopy(char[] source, int sourcePos, char[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static char[] arrayCopy(char[] source, int sourcePos, char[] dest,
+            int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
+            throw new RuntimeException("Destination array not large enough.");
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
+        return dest;
+    }
+
+    public static int[] arrayCopy(int[] source, int[] dest) {
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static int[] arrayCopy(int[] source, int sourcePos, int[] dest) {
+        return arrayCopy(source, sourcePos, dest, 0);
+    }
+
+    public static int[] arrayCopy(int[] source, int[] dest, int destPos) {
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static int[] arrayCopy(int[] source, int sourcePos, int[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static int[] arrayCopy(int[] source, int sourcePos, int[] dest,
+            int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
+            throw new RuntimeException("Destination array not large enough.");
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
+        return dest;
+    }
+
+    public static long[] arrayCopy(long[] source, long[] dest) {
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static long[] arrayCopy(long[] source, int sourcePos, long[] dest) {
+        return arrayCopy(source, sourcePos, dest, 0);
+    }
+
+    public static long[] arrayCopy(long[] source, long[] dest, int destPos) {
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static long[] arrayCopy(long[] source, int sourcePos, long[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
+    }
+    public static long[] arrayCopy(long[] source, int sourcePos, long[] dest,
+            int destPos, int length)
+    {
+        if(source.length - sourcePos < length) {
+            throw new RuntimeException("Source array not large enough.");
+        }
+
+        if(dest.length - destPos < length) {
+            throw new RuntimeException("Destination array not large enough.");
+        }
+
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+
         return dest;
     }
 
     public static <T> T[] arrayCopy(T[] source, T[] dest) {
-        return arrayCopy(source, dest, 0);
+        return arrayCopy(source, 0, dest, 0);
+    }
+
+    public static <T> T[] arrayCopy(T[] source, int sourcePos, T[] dest) {
+        return arrayCopy(source, sourcePos, dest, 0);
     }
 
     public static <T> T[] arrayCopy(T[] source, T[] dest, int destPos) {
-        return arrayCopy(source, 0, dest, destPos, source.length);
+        return arrayCopy(source, 0, dest, destPos);
+    }
+
+    public static <T> T[] arrayCopy(T[] source, int sourcePos, T[] dest,
+            int destPos)
+    {
+        return arrayCopy(source, sourcePos, dest, destPos,
+                source.length - sourcePos);
     }
 
     public static <T> T[] arrayCopy(T[] source, int sourcePos, T[] dest,
