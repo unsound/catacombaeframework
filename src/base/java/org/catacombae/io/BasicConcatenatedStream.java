@@ -20,6 +20,7 @@ package org.catacombae.io;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.catacombae.util.Util;
 
@@ -68,6 +69,15 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             log.traceEnter(firstPart, startOffset, length);
 
         try {
+            if(startOffset < 0) {
+                /* Negative startOffset means there is an hole segment inserted
+                 * before the first byte of the stream. */
+                Part missingPart = new Part(null, startOffset, -startOffset);
+                parts.add(missingPart);
+                length += startOffset;
+                startOffset = 0;
+            }
+
             Part currentPart = new Part(firstPart, startOffset, length);
             parts.add(currentPart);
             virtualFP = 0;
@@ -136,7 +146,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             for(Part p : parts) {
                 ++requestedPartIndex;
 
-                if(bytesToSkip > p.length) {
+                if(bytesToSkip >= p.length) {
                     bytesToSkip -= p.length;
                 }
                 else {
@@ -174,19 +184,31 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
 
                 if(log.debug) {
                     log.debug("bytesToRead = " + bytesToRead);
-                    log.debug("seeking to " + bytesToSkipInPart);
                 }
 
-                requestedPart.file.seek(requestedPart.startOffset + bytesToSkipInPart);
-
-                if(log.debug) {
-                    log.debug("invoking requestedPart.file.read(byte[" +
-                            data.length + "], " + (off + bytesRead) + ", " +
-                            bytesToRead + ")");
+                int res;
+                if(requestedPart.file == null) {
+                    /* This is a hole, so just zero-fill. */
+                    Arrays.fill(data, off + bytesRead, bytesToRead, (byte) 0);
+                    res = bytesToRead;
                 }
+                else {
+                    if(log.debug) {
+                        log.debug("seeking to " + bytesToSkipInPart);
+                    }
 
-                int res = requestedPart.file.read(data, off + bytesRead,
-                        bytesToRead);
+                    requestedPart.file.seek(requestedPart.startOffset +
+                           bytesToSkipInPart);
+
+                    if(log.debug) {
+                        log.debug("invoking requestedPart.file.read(byte[" +
+                                data.length + "], " + (off + bytesRead) + ", " +
+                                bytesToRead + ")");
+                    }
+
+                    res = requestedPart.file.read(data, off + bytesRead,
+                            bytesToRead);
+                }
 
                 if(log.debug) {
                     log.debug("res = " + res);
@@ -255,8 +277,11 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
         if(log.trace)
             log.traceEnter();
 
-        for(Part p : parts)
-            p.file.close();
+        for(Part p : parts) {
+            if(p.file != null) {
+                p.file.close();
+            }
+        }
 
         if(log.trace)
             log.traceLeave();

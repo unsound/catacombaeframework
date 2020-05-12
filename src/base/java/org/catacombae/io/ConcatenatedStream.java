@@ -62,6 +62,11 @@ public class ConcatenatedStream extends BasicConcatenatedStream<RandomAccessStre
             int bytesLeftToWrite = len - bytesWritten;
             int bytesToWrite = (int) ((bytesLeftToWrite < requestedPart.length) ? bytesLeftToWrite : requestedPart.length);
 
+            if(requestedPart.file == null) {
+                throw new RuntimeException("Tried to write to hole at " +
+                        "offset: " + requestedPart.startOffset);
+            }
+
             requestedPart.file.seek(bytesToSkipInPart);
             requestedPart.file.write(data, off + bytesWritten, bytesToWrite);
             
