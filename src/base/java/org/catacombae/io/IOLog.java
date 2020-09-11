@@ -65,7 +65,7 @@ class IOLog {
         if(trace) {
             final StackTraceElement ste =
                     Thread.currentThread().getStackTrace()[2];
-            final String className = ste.getClass().getSimpleName();
+            final String className = ste.getClassName();
             final String methodName = ste.getMethodName();
 
             StringBuilder sb = new StringBuilder("ENTER: ");
@@ -97,7 +97,7 @@ class IOLog {
         if(trace) {
             final StackTraceElement ste =
                     Thread.currentThread().getStackTrace()[2];
-            final String className = ste.getClass().getSimpleName();
+            final String className = ste.getClassName();
             final String methodName = ste.getMethodName();
 
             StringBuilder sb = new StringBuilder("LEAVE: ");
