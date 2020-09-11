@@ -132,24 +132,26 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
             int bytesRead = 0;
 
             long bytesToSkip = virtualFP;
-            int requestedPartIndex = -1;
+            int requestedPartIndex = 0;
             for(Part p : parts) {
-                ++requestedPartIndex;
-
-                if(bytesToSkip > p.length) {
-                    bytesToSkip -= p.length;
-                }
-                else {
+                if(bytesToSkip < p.length) {
+                    /* The first byte of virtualFP is within this part. */
                     break;
                 }
+
+                ++requestedPartIndex;
+                bytesToSkip -= p.length;
             }
-            if(requestedPartIndex == -1)
+
+            if(requestedPartIndex >= parts.size()) {
                 return -1;
+            }
 
             while(requestedPartIndex < parts.size()) {
                 Part requestedPart = parts.get(requestedPartIndex++);
 
                 if(log.debug) {
+                    log.debug("requestedPartIndex = " + requestedPartIndex);
                     log.debug("requestedPart.length = " + requestedPart.length);
                     log.debug("requestedPart.startOffset = " +
                             requestedPart.startOffset);
@@ -158,7 +160,7 @@ public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStre
                 long bytesToSkipInPart = bytesToSkip;
 
                 if(log.debug) {
-                    log.debug("bytesToSkipInPart=" + bytesToSkipInPart);
+                    log.debug("bytesToSkipInPart = " + bytesToSkipInPart);
                 }
 
                 bytesToSkip = 0;
