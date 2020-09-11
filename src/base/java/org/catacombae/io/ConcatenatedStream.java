@@ -39,19 +39,21 @@ public class ConcatenatedStream extends BasicConcatenatedStream<RandomAccessStre
 
         // First: Look up the position represented by our virtual file pointer.
         long bytesToSkip = virtualFP;
-        int requestedPartIndex = -1;
+        int requestedPartIndex = 0;
         for(Part p : parts) {
-            ++requestedPartIndex;
-
-            if(bytesToSkip > p.length) {
-                bytesToSkip -= p.length;
-            }
-            else {
+            if(bytesToSkip < p.length) {
+                /* The first byte of virtualFP is within this part. */
                 break;
             }
+
+            ++requestedPartIndex;
+            bytesToSkip -= p.length;
         }
-        if(requestedPartIndex == -1)
-            throw new RuntimeIOException("Tried to write beyond end of file.");
+
+        if(requestedPartIndex >= parts.size()) {
+            throw new RuntimeIOException("Tried to write beyond end of " +
+                    "stream.");
+        }
 
         // Loop as long as we still have data to fill, and we still have parts to process.
         while(bytesWritten < len && requestedPartIndex < parts.size()) {
