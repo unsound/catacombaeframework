@@ -1518,7 +1518,7 @@ public class Util {
 
     /**
      * Concatenates the <code>strings</code> into one big string, putting
-     * <code>glueString</code> between each pair. Example:<br/>
+     * <code>glueString</code> between each pair. Example:<br>
      * <code>concatenateStrings(new String[] {"joe", "lisa", "bob"},
      * " and ");</code> yields the string "joe and lisa and bob".
      *
@@ -1789,7 +1789,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutBE(byte[] array, int pos, char[] data,
             int offset, int length)
@@ -1820,7 +1821,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutBE(byte[] array, int pos, short[] data,
             int offset, int length)
@@ -1851,7 +1853,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutBE(byte[] array, int pos, int[] data,
             int offset, int length)
@@ -1882,7 +1885,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutBE(byte[] array, int pos, long[] data,
             int offset, int length)
@@ -1985,7 +1989,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutLE(byte[] array, int pos, char[] data,
             int offset, int length)
@@ -2016,7 +2021,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutLE(byte[] array, int pos, short[] data,
             int offset, int length)
@@ -2047,7 +2053,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutLE(byte[] array, int pos, int[] data,
             int offset, int length)
@@ -2078,7 +2085,8 @@ public class Util {
      * @param data the data to write.
      * @param offset offset into <code>data</code> where we should start
      *        reading.
-     * @param length the number of array elements to put into <code>array<code>.
+     * @param length the number of array elements to put into
+     *        <code>array</code>.
      */
     public static void arrayPutLE(byte[] array, int pos, long[] data,
             int offset, int length)
