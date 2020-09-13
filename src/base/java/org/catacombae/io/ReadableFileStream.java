@@ -31,21 +31,8 @@ import org.catacombae.util.Util;
  */
 public class ReadableFileStream implements ReadableRandomAccessStream {
 
-    private static final IOLog log = IOLog.getInstance();
-
-    static {
-        log.debug = Util.booleanEnabledByProperties(log.debug,
-                "org.catacombae.debug",
-                "org.catacombae.io.debug",
-                "org.catacombae.io." +
-                ReadableFileStream.class.getSimpleName() + ".debug");
-
-        log.trace = Util.booleanEnabledByProperties(log.trace,
-                "org.catacombae.debug",
-                "org.catacombae.io.debug",
-                "org.catacombae.io." +
-                ReadableFileStream.class.getSimpleName() + ".trace");
-    }
+    private static final IOLog log =
+            IOLog.getInstance(ReadableFileStream.class);
 
     protected final RandomAccessFile raf;
 

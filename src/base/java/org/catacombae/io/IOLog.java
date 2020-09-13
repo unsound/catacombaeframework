@@ -18,6 +18,9 @@
 
 package org.catacombae.io;
 
+import java.util.LinkedList;
+import org.catacombae.util.Util;
+
 /**
  * Logging class for the I/O package.
  *
@@ -36,7 +39,24 @@ class IOLog {
     /** The current setting of the 'debug' log level for this instance. */
     public boolean debug = defaultDebug;
 
-    private IOLog() {}
+    private IOLog(Class cls) {
+        final LinkedList<String> debugLogProperties = new LinkedList<String>();
+        final LinkedList<String> traceLogProperties = new LinkedList<String>();
+        String component = null;
+
+        for(String s : cls.getCanonicalName().split("\\.")) {
+            component = ((component != null) ? component + "." : "") + s;
+            debugLogProperties.add(component + ".debug");
+            traceLogProperties.add(component + ".trace");
+        }
+
+        this.debug = Util.booleanEnabledByProperties(this.debug,
+                debugLogProperties.toArray(new String[debugLogProperties.
+                size()]));
+        this.trace = Util.booleanEnabledByProperties(this.trace,
+                traceLogProperties.toArray(new String[traceLogProperties.
+                size()]));
+    }
 
     /** Emits a 'debug' level message. */
     public void debug(String message) {
@@ -136,8 +156,8 @@ class IOLog {
      * @param cls the class for which the instance should be valid.
      * @return an IOLog instance.
      */
-    public static IOLog getInstance() {
-        return new IOLog();
+    public static IOLog getInstance(Class cls) {
+        return new IOLog(cls);
     }
 
     /*

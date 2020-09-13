@@ -22,7 +22,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.catacombae.util.Util;
 
 /**
  * Common superclass of ReadableConcatenatedStream and ConcatenatedStream.
@@ -32,21 +31,8 @@ import org.catacombae.util.Util;
 public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStream>
         extends BasicReadableRandomAccessStream {
 
-    private static final IOLog log = IOLog.getInstance();
-
-    static {
-        log.debug = Util.booleanEnabledByProperties(log.debug,
-                "org.catacombae.debug",
-                "org.catacombae.io.debug",
-                "org.catacombae.io." +
-                BasicConcatenatedStream.class.getSimpleName() + ".debug");
-
-        log.trace = Util.booleanEnabledByProperties(log.trace,
-                "org.catacombae.debug",
-                "org.catacombae.io.debug",
-                "org.catacombae.io." +
-                BasicConcatenatedStream.class.getSimpleName() + ".trace");
-    }
+    private static final IOLog log =
+            IOLog.getInstance(BasicConcatenatedStream.class);
 
     protected class Part {
 
