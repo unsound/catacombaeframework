@@ -21,7 +21,6 @@ package org.catacombae.io;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import org.catacombae.util.Util;
 
 /**
  * This class wraps a java.io.RandomAccessFile (opened in read-only mode) and
