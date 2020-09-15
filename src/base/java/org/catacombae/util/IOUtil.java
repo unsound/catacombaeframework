@@ -24,7 +24,7 @@ import org.catacombae.io.RuntimeIOException;
 /**
  * CatacombaeIO-specific utility class.
  * 
- * @author Erik Larsson
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class IOUtil {
     /**

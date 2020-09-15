@@ -23,7 +23,7 @@ package org.catacombae.io;
  * of ReadableRandomAccessStreams (or regions of them) into a new logical
  * ReadableRandomAccessStream.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableConcatenatedStream extends BasicConcatenatedStream<ReadableRandomAccessStream> {
 

@@ -19,8 +19,9 @@
 package org.catacombae.io;
 
 /**
+ * A truncatable random access stream of data.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface TruncatableRandomAccessStream extends RandomAccessStream, TruncatableRandomAccess {
 

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Common superclass of ReadableConcatenatedStream and ConcatenatedStream.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStream>
         extends BasicReadableRandomAccessStream {

@@ -21,7 +21,7 @@ package org.catacombae.io;
 /**
  * Interface that defines methods to access a ReadableRandomAccessStream in a thread-safe way.
  * 
- * @author Erik Larsson
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface SynchronizedReadable {
     /** Atomic seek+read. Does <b>not</b> change the file pointer of the stream permanently! */

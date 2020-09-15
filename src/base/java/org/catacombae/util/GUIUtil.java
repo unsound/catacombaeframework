@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
 /**
  * Utility functions that the GUI designer can use to ease his/her existential suffering.
  * 
- * @author Erik Larsson
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class GUIUtil {
     /**

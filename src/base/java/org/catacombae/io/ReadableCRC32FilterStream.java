@@ -25,7 +25,7 @@ import java.util.zip.CRC32;
  * Seeking does not reset the checksum. It is only the read methods and what
  * they return that alter the value of the checksum.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableCRC32FilterStream implements ReadableRandomAccessStream {
     private ReadableRandomAccessStream source;

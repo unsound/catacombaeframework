@@ -22,7 +22,7 @@ package org.catacombae.io;
  * A full read/write version of ReadableConcatenatedStream.
  * Note: Untested!
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ConcatenatedStream extends BasicConcatenatedStream<RandomAccessStream> implements RandomAccessStream {
     

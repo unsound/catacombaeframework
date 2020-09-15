@@ -24,7 +24,7 @@ import java.io.PrintStream;
  * java.io.PrintStream.<br>
  * The printed contents will be space-indented for readability.
  *
- * @author <a href="http://www.catacombae.org/" target="_top">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface PrintableStruct {
     /**

@@ -23,7 +23,7 @@ package org.catacombae.io;
  * can tell the stream to reposition itself. It was designed to mimic RandomAccessFile, but without
  * limiting itself to working with files in a file system.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface ReadableRandomAccessStream extends Stream, RandomAccess, Readable {
 }

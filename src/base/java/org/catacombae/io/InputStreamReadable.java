@@ -24,7 +24,7 @@ import java.io.InputStream;
 /**
  * Transforms a java.io.InputStream into an org.catacombae.io.Readable.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class InputStreamReadable extends BasicReadable implements Stream {
 

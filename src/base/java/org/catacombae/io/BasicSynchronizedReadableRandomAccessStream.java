@@ -21,7 +21,7 @@ package org.catacombae.io;
 /**
  * Basic implementation of convenience methods in a SynchronizedReadableRandomAccess.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public abstract class BasicSynchronizedReadableRandomAccessStream extends BasicReadableRandomAccessStream implements SynchronizedReadableRandomAccess {
     /** {@inheritDoc} */

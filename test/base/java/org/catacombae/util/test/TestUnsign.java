@@ -9,7 +9,7 @@ import org.catacombae.util.Util;
 
 /**
  *
- * @author erik
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class TestUnsign {
     public static void main(String[] args) {

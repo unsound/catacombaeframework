@@ -23,7 +23,7 @@ package org.catacombae.util;
  * reference any actual Java 6-only classes, so it's safe to call from any VM (or at least Java 5
  * VM:s, as I never write code for anything less than Java 5...).
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class Java6Util {
     /**

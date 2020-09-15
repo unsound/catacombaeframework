@@ -18,7 +18,7 @@
 package org.catacombae.csjc.structelements;
 
 /**
- * @author <a href="http://www.catacombae.org/" target="_top">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public enum IntegerFieldRepresentation {
     DECIMAL("", 10), HEXADECIMAL("0x", 16), OCTAL("0", 8), BINARY("0b", 2);

@@ -24,7 +24,7 @@ import org.catacombae.util.Util;
 /**
  * Logging class for the I/O package.
  *
- * @author Erik Larsson
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 class IOLog {
     /** The default setting for the 'trace' log level. */

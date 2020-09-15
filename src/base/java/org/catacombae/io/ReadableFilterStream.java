@@ -25,7 +25,7 @@ package org.catacombae.io;
  * filtering subclasses which can override all operations, or just a few of
  * them.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableFilterStream implements ReadableRandomAccessStream {
     protected ReadableRandomAccessStream backingStore;

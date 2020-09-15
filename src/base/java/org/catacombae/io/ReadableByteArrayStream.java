@@ -21,7 +21,7 @@ package org.catacombae.io;
 /**
  * A ReadableRandomAccessStream implementation backed by a byte array.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableByteArrayStream extends BasicReadableRandomAccessStream {
     private final byte[] backingArray;

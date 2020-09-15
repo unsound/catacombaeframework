@@ -20,7 +20,7 @@ package org.catacombae.csjc.structelements;
 import org.catacombae.util.Util;
 
 /**
- * @author <a href="http://www.catacombae.org/" target="_top">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ByteArrayField extends StringRepresentableField {
 

@@ -21,7 +21,7 @@ package org.catacombae.io;
 /**
  * This interface defines the methods that must exist for a stream to be writable.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface Writable {
     /**

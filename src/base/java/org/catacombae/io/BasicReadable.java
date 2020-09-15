@@ -22,7 +22,7 @@ package org.catacombae.io;
  * Basic implementation of core features of Readable, to allow the subclasser to only implement the
  * essential methods.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public abstract class BasicReadable implements Readable {
     /**

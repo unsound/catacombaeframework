@@ -26,7 +26,7 @@ import java.io.IOException;
  * This class wraps a java.io.RandomAccessFile (opened in read/write mode) and
  * maps its operations to the operations of RandomAccessStream.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class FileStream extends ReadableFileStream implements TruncatableRandomAccessStream {
     public FileStream(String filename) {

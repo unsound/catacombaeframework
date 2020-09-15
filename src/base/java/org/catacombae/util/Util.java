@@ -26,6 +26,11 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * All-purpose utility class with various useful functionality.
+ *
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
+ */
 public class Util {
     public static class Pair<A,B> {
         private A a;

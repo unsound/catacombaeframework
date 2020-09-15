@@ -18,6 +18,11 @@
 
 package org.catacombae.util;
 
+/**
+ * Utility class for wrapping an object.
+ *
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
+ */
 public class ObjectContainer<A> {
 
     public volatile A o;

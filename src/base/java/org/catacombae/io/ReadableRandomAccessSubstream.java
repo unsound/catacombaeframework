@@ -25,7 +25,7 @@ import org.catacombae.util.Util;
  * completely independent stream with its own file pointer and access to the
  * same data.
  * 
- * @author Erik Larsson
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableRandomAccessSubstream extends BasicReadableRandomAccessStream {
     private static final boolean DEBUG =

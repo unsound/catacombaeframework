@@ -22,7 +22,7 @@ package org.catacombae.io;
  * Designed to mimic a subset of RandomAccessFile, except that we don't throw
  * checked IOExceptions, but RuntimeIOExceptions instead.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface RandomAccessStream extends ReadableRandomAccessStream, WritableRandomAccessStream {
 }

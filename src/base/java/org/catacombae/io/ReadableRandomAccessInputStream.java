@@ -24,6 +24,8 @@ import java.io.InputStream;
 /**
  * This class subclasses java.io.InputStream to transform a part of a
  * SynchronizedRandomAccessStream into an ordinary InputStream.
+ *
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class ReadableRandomAccessInputStream extends InputStream {
     private final SynchronizedReadableRandomAccessStream ras;

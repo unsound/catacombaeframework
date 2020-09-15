@@ -22,7 +22,7 @@ package org.catacombae.io;
  * Basic implementation of many features of ReadableRandomAccessStream, to allow the subclasser to
  * only implement the essential methods needed to support a ReadableRandomAccessStream.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public abstract class BasicReadableRandomAccessStream extends BasicReadable implements ReadableRandomAccessStream {
     /**

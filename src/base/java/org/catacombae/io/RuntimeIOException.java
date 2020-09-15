@@ -27,7 +27,7 @@ import java.io.IOException;
  * This is a subclass of RuntimeExceptions that are meant to be thrown when
  * it is caused by I/O problems.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class RuntimeIOException extends RuntimeException {
     private final IOException ioCause;

@@ -19,8 +19,10 @@
 package org.catacombae.io;
 
 /**
+ * Generalized interface for something that is thread-safe and random access
+ * readable.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface SynchronizedReadableRandomAccess extends SynchronizedReadable, RandomAccess {
     /**

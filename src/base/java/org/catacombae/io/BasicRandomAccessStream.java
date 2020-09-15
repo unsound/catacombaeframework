@@ -22,7 +22,7 @@ package org.catacombae.io;
  * This convenient base class provides default implementations for some of the
  * methods in RandomAccessStream.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public abstract class BasicRandomAccessStream extends BasicReadableRandomAccessStream implements RandomAccessStream {
 

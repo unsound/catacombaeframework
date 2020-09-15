@@ -25,6 +25,8 @@ import org.catacombae.util.Util;
  * This class adds concurrency safety to a random access stream. It includes a
  * seek+read atomic operation. All operations on this object is synchronized on
  * its own monitor.
+ *
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class SynchronizedReadableRandomAccessStream
         extends BasicSynchronizedReadableRandomAccessStream

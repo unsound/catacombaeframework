@@ -23,6 +23,11 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+/**
+ * Utility class for getting a human readable string from a byte amount.
+ *
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
+ */
 public class SpeedUnitUtils {
     protected static final long kibibyte = mypow(2, 10);
     protected static final long mebibyte = mypow(2, 20);

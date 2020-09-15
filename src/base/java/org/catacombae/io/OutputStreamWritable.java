@@ -24,7 +24,7 @@ import java.io.OutputStream;
 /**
  * Transforms a java.io.OutputStream into an org.catacombae.io.Writable.
  *
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public class OutputStreamWritable extends BasicWritable implements Stream {
     private final OutputStream os;

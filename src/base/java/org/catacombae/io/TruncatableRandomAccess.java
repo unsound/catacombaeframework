@@ -22,7 +22,7 @@ package org.catacombae.io;
  * Extension of RandomAccess for situations where the the size of the underlying
  * storage can be set.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface TruncatableRandomAccess extends RandomAccess {
     public void setLength(long newLength)

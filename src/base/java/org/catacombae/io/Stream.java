@@ -22,7 +22,7 @@ package org.catacombae.io;
  * This is the superinterface of all streams in the catacombae.io package. It contains the only
  * method that is general enough to be applicable to all streams, the <code>close()</code> method.
  * 
- * @author <a href="http://hem.bredband.net/catacombae">Erik Larsson</a>
+ * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
 public interface Stream {
     /**
