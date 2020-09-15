@@ -28,12 +28,14 @@ import java.io.RandomAccessFile;
  *
  * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
-public class ReadableFileStream implements ReadableRandomAccessStream {
-
+public class ReadableFileStream implements ReadableRandomAccessStream,
+        AbstractFileStream
+{
     private static final IOLog log =
             IOLog.getInstance(ReadableFileStream.class);
 
     protected final RandomAccessFile raf;
+    private final String openPath;
 
     public ReadableFileStream(String filename) {
         this(new File(filename));
@@ -43,7 +45,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
         this(file, "r");
     }
 
-    public ReadableFileStream(RandomAccessFile raf) {
+    public ReadableFileStream(RandomAccessFile raf, String openPath) {
         if(log.trace)
             log.traceEnter(raf);
 
@@ -51,6 +53,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             if(raf == null)
                 throw new IllegalArgumentException("raf may NOT be null");
             this.raf = raf;
+            this.openPath = openPath;
         } finally {
             if(log.trace)
                 log.traceLeave(raf);
@@ -67,6 +70,7 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
 
         try {
             this.raf = new RandomAccessFile(file, mode);
+            this.openPath = file.getPath();
         } catch(IOException ex) {
             throw new RuntimeIOException(ex);
         } finally {
@@ -230,5 +234,10 @@ public class ReadableFileStream implements ReadableRandomAccessStream {
             if(log.trace)
                 log.traceLeave();
         }
+    }
+
+    /* @Override */
+    public String getOpenPath() {
+        return openPath;
     }
 }
