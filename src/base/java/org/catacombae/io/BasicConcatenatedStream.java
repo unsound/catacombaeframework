@@ -18,6 +18,7 @@
 
 package org.catacombae.io;
 
+import org.catacombae.util.Log;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +32,8 @@ import java.util.List;
 public abstract class BasicConcatenatedStream<A extends ReadableRandomAccessStream>
         extends BasicReadableRandomAccessStream {
 
-    private static final IOLog log =
-            IOLog.getInstance(BasicConcatenatedStream.class);
+    private static final Log log =
+            Log.getInstance(BasicConcatenatedStream.class);
 
     protected class Part {
 

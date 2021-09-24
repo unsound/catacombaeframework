@@ -18,6 +18,7 @@
 
 package org.catacombae.io;
 
+import org.catacombae.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -31,8 +32,8 @@ import java.io.RandomAccessFile;
 public class ReadableFileStream implements ReadableRandomAccessStream,
         AbstractFileStream
 {
-    private static final IOLog log =
-            IOLog.getInstance(ReadableFileStream.class);
+    private static final Log log =
+            Log.getInstance(ReadableFileStream.class);
 
     protected final RandomAccessFile raf;
     private final String openPath;

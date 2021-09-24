@@ -1,5 +1,5 @@
 /*-
- * Copyright (C) 2009 Erik Larsson
+ * Copyright (C) 2009-2021 Erik Larsson
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,17 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package org.catacombae.io;
+package org.catacombae.util;
 
 import java.util.LinkedList;
-import org.catacombae.util.Util;
 
 /**
- * Logging class for the I/O package.
+ * Common logging class for Catacombae framework.
  *
  * @author <a href="https://catacombae.org" target="_top">Erik Larsson</a>
  */
-class IOLog {
+public class Log {
     /** The default setting for the 'trace' log level. */
     public static boolean defaultTrace = false;
 
@@ -39,7 +38,7 @@ class IOLog {
     /** The current setting of the 'debug' log level for this instance. */
     public boolean debug = defaultDebug;
 
-    private IOLog(Class cls) {
+    private Log(Class cls) {
         final LinkedList<String> debugLogProperties = new LinkedList<String>();
         final LinkedList<String> traceLogProperties = new LinkedList<String>();
         String component = null;
@@ -77,8 +76,6 @@ class IOLog {
      * Called upon method entry, and generates a trace level message starting
      * with "ENTER: ".
      *
-     * @param methodName the name of the method. <code>null</code> indicates a
-     * constructor and the message will be formatted accordingly.
      * @param args the method/constructor's arguments.
      */
     public void traceEnter(Object... args) {
@@ -109,8 +106,6 @@ class IOLog {
      * Called upon method exit, and generates a trace level message starting
      * with "LEAVE: ".
      *
-     * @param methodName the name of the method. <code>null</code> indicates a
-     * constructor and the message will be formatted accordingly.
      * @param args the method/constructor's arguments.
      */
     public void traceLeave(Object... args) {
@@ -156,8 +151,8 @@ class IOLog {
      * @param cls the class for which the instance should be valid.
      * @return an IOLog instance.
      */
-    public static IOLog getInstance(Class cls) {
-        return new IOLog(cls);
+    public static Log getInstance(Class cls) {
+        return new Log(cls);
     }
 
     /*
