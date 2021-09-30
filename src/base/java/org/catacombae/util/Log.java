@@ -58,7 +58,7 @@ public class Log {
     }
 
     /** Emits a 'debug' level message. */
-    public void debug(String message) {
+    public final void debug(String message) {
         if(debug)
             System.err.println("DEBUG: " + message);
     }
@@ -67,7 +67,7 @@ public class Log {
      * Free form trace level log message.
      * @param msg the message to emit.
      */
-    public void trace(String msg) {
+    public final void trace(String msg) {
         if(trace)
             System.err.println("TRACE: " + msg);
     }
@@ -78,7 +78,7 @@ public class Log {
      *
      * @param args the method/constructor's arguments.
      */
-    public void traceEnter(Object... args) {
+    public final void traceEnter(Object... args) {
         if(trace) {
             final StackTraceElement ste =
                     Thread.currentThread().getStackTrace()[2];
@@ -108,7 +108,7 @@ public class Log {
      *
      * @param args the method/constructor's arguments.
      */
-    public void traceLeave(Object... args) {
+    public final void traceLeave(Object... args) {
         if(trace) {
             final StackTraceElement ste =
                     Thread.currentThread().getStackTrace()[2];
@@ -140,7 +140,7 @@ public class Log {
      * Called before a method returns with a value.
      * @param retval the value returned.
      */
-    public void traceReturn(Object retval) {
+    public final void traceReturn(Object retval) {
         if(trace)
             System.err.println("RETURN: " + retval);
     }
